@@ -60,6 +60,7 @@ plugins=(
   z
   git
   tig
+  ssh-agent
 )
 
 source $ZSH/oh-my-zsh.sh
