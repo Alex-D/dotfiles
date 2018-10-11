@@ -115,5 +115,12 @@ npm() {
   npm "$@"
 }
 
+yarn() {
+  unset -f yarn
+  export NVM_DIR=~/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  yarn "$@"
+}
+
 # go
 export PATH=$PATH:/usr/local/go/bin
