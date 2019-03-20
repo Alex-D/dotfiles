@@ -55,5 +55,5 @@ export DOCKER_HOST=tcp://localhost:2375
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-alias sf="docker-compose exec php bin/console --no-debug"
+alias sf="docker-compose exec php bin/console"
 alias dc="docker-compose exec php composer"
