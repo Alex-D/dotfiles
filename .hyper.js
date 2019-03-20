@@ -101,7 +101,7 @@ module.exports = {
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
-    shellArgs: ['-c', 'cd ~ && exec $SHELL'],
+    shellArgs: ['-c', 'cd ~ && exec zsh'],
 
     // for environment variables
     env: {},
