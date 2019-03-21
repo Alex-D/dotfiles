@@ -86,6 +86,18 @@ module.exports = {
     .terms_termsShifted {
       margin-top: 34px;
     }
+
+    /* Fade the title of inactive tabs and the content of inactive panes */
+    .tab_text,
+    .term_term {
+      opacity: 0.5;
+      will-change: opacity;
+    }
+    .tab_active .tab_text,
+    .term_active .term_term {
+      opacity: 1;
+      transition: opacity 100ms;
+    }
     `,
 
     // custom CSS to embed in the terminal window
@@ -177,9 +189,7 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     "hyper-snazzy",
-    "hyper-search",
-    "hypercwd",
-    "hyper-highlight-active-pane"
+    "hyper-search"
   ],
 
   // in development, you can create a directory under
