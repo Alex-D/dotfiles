@@ -98,6 +98,75 @@ module.exports = {
       opacity: 1;
       transition: opacity 100ms;
     }
+
+    /* Hyper search custom theme */
+    .hyper-search-wrapper {
+      border-radius: 0 !important;
+      border: 1px solid rgba(255, 106, 193, 0.4) !important;
+      height: 36px !important;
+      top: 10px !important;
+      right: 24px !important;
+      width: 274px !important;
+      padding: 5px 0px 5px 13px !important;
+      opacity: 1 !important;
+      background: #242530 !important;
+      box-shadow: 0 5px 15px rgba(255, 106, 193, 0.1);
+      animation: hyperSearchSlideDown 100ms;
+    }
+    .hyper-search-wrapper input {
+      font-size: 14px !important;
+      margin-right: 10px !important;
+      font-family: "Fira Mono for Powerline", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace !important;
+    }
+    .hyper-search-wrapper button {
+      background: none !important;
+      border-radius: 0 !important;
+      height: 24px !important;
+      width: 24px !important;
+      overflow: hidden;
+      text-indent: 50px;
+      opacity: 0.5 !important;
+      transition: opacity 100ms;
+    }
+    .hyper-search-wrapper button:hover {
+      opacity: 1 !important;
+    }
+    .hyper-search-wrapper button:nth-child(2),
+    .hyper-search-wrapper button:nth-child(3) {
+      top: -1px !important;
+    }
+    .hyper-search-wrapper button::before {
+      content: "⯅";
+      color: #fff;
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: 24px;
+      width: 24px;
+      text-indent: 0;
+    }
+    .hyper-search-wrapper button:nth-child(3)::before {
+      content: "⯆";
+      top: 2px;
+    }
+    .hyper-search-wrapper button:nth-child(4)::before {
+      content: "Aa";
+      top: 5px;
+    }
+    .hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"] {
+      opacity: 0.6 !important;
+    }
+    .hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]:hover {
+      opacity: 1 !important;
+    }
+    .hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]::before {
+      color: rgb(255, 106, 193);
+    }
+
+    @keyframes hyperSearchSlideDown {
+      0% { transform: translateY(-15px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
     `,
 
     // custom CSS to embed in the terminal window
