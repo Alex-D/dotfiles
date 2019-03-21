@@ -46,7 +46,47 @@ module.exports = {
     borderColor: '#333',
 
     // custom CSS to embed in the main window
-    css: '',
+    css: `
+    /* Move the hamburger menu to right */
+    .header_hamburgerMenuLeft {
+      left: auto;
+      right: 120px;
+    }
+
+    .header_windowHeader {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hide app title when more than 1 tab */
+    .header_windowHeaderWithBorder .header_appTitle {
+      display: none;
+    }
+
+    /* Move tabs in header like in Chrome */
+    .tabs_nav {
+      position: fixed;
+      top: 1px;
+      left: 1px;
+      z-index: 101;
+      width: calc(100% - 200px);
+      -webkit-app-region: no-drag;
+    }
+
+    /* Light up active tab */
+    .tab_tab {
+      will-change: background-color;
+    }
+    .tab_tab.tab_active,
+    .tab_tab:hover {
+      background-color: #282a36; /* backgroundColor */
+      transition: background-color 150ms;
+    }
+
+    /* Do not shift since tabs are now in header */
+    .terms_termsShifted {
+      margin-top: 34px;
+    }
+    `,
 
     // custom CSS to embed in the terminal window
     termCSS: '',
@@ -123,7 +163,7 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-    
+
     hyperTabs: {
       closeAlign: 'right',
     }
@@ -135,7 +175,12 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyper-material-theme", "hyper-search"],
+  plugins: [
+    "hyper-snazzy",
+    "hyper-search",
+    "hypercwd",
+    "hyper-highlight-active-pane"
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
