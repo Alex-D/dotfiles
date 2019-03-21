@@ -96,9 +96,10 @@ sudo apt install zsh
 # Install Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-# Install Oh My Zsh custom plugins
-git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
-chmod -R g-w,o-w ~/.oh-my-zsh/custom/plugins/zsh-nvm
+# Install zsh custom plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
+chmod -R g-w,o-w ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
 # Use the custom .zshrc from this repo
 ln -s /c/dev/oss/dotfiles/.zshrc .zshrc

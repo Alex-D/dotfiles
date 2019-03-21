@@ -29,6 +29,7 @@ plugins=(
   docker-compose
   composer
   zsh-nvm
+  zsh-syntax-highlighting
   npm
   yarn
 )
