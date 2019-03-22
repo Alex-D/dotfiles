@@ -1,60 +1,32 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/ademode/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="refined"
-
-# zsh-nvm configuration
-# We want fast terminal startup
-# So let's lazy load nvm stuff
-NVM_LAZY_LOAD=true
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  z
-  git
-  tig
-  ssh-agent
-  docker
-  docker-compose
-  composer
-  zsh-nvm
-  zsh-syntax-highlighting
-  npm
-  yarn
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-DEFAULT_USER='ademode'
-
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
+
+# Allows to shorten some paths
+setopt AUTO_NAME_DIRS
+[ -f .zsh_autonamed_dirs.zsh ] && source .zsh_autonamed_dirs.zsh
+
+# Custom aliases
+[ -f .aliases.zsh ] && source .aliases.zsh
+
+# All zsh plugins (Generated via Antibody)
+[ -f .zsh_plugins.zsh ] && source .zsh_plugins.zsh
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Docker for Windows <> WSL
 export DOCKER_HOST=tcp://localhost:2375
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-alias sf="docker-compose exec php bin/console"
-alias dc="docker-compose exec php composer"
+## History command configuration
+HISTSIZE=5000                 # How many lines of history to keep in memory
+HISTFILE=~/.zsh_history       # Where to save history to disk
+SAVEHIST=5000                 # Number of history entries to save to disk
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
+
+clear

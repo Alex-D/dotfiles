@@ -79,7 +79,7 @@ cat ~/.ssh/id_rsa.pub
 ```bash
 # Finally clone the repository
 mkdir -p /c/dev/oss/dotfiles
-git clone git@github.com:Alex-D/dotfiles.git /c/dev/oss/dotfiles
+git clone git@github.com:Alex-D/dotfiles.git /c/dev/oss/.dotfiles
 ```
 - [CMD] Use the custom *.hyper.js* config from this repo
 ```cmd
@@ -87,21 +87,19 @@ del /f %HOMEPATH%\.hyper.js
 mklink /h %HOMEPATH%\.hyper.js C:\dev\oss\dotfiles\.hyper.js
 ```
 - Restart Hyper
-- [WSL] Install *zsh* and *Oh My Zsh*
+- [WSL] Install *zsh*
 ```bash
 # Install zsh
 sudo apt-get update
 sudo apt install zsh
 
-# Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Link custom dotfiles
+ln -sf /c/dev/oss/dotfiles/.zsh_autonamed_dirs.zsh ~/.zsh_autonamed_dirs.zsh
+ln -sf /c/dev/oss/dotfiles/.aliases.zsh ~/.aliases.zsh
+ln -sf /c/dev/oss/dotfiles/.zshrc ~/.zshrc
 
-# Install zsh custom plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
-chmod -R g-w,o-w ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-
-# Use the custom .zshrc from this repo
-ln -s /c/dev/oss/dotfiles/.zshrc .zshrc
+# Install Antibody and generate .zsh_plugins.zsh
+curl -sL git.io/antibody | sh -s
+antibody bundle < /c/dev/oss/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 ```
 - Restart Hyper and you are ready to go!
