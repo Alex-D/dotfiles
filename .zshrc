@@ -3,13 +3,13 @@ unsetopt BG_NICE
 
 # Allows to shorten some paths
 setopt AUTO_NAME_DIRS
-[ -f .zsh_autonamed_dirs.zsh ] && source .zsh_autonamed_dirs.zsh
+[ -f ~/.zsh_autonamed_dirs.zsh ] && source ~/.zsh_autonamed_dirs.zsh
 
 # Custom aliases
-[ -f .aliases.zsh ] && source .aliases.zsh
+[ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 
 # All zsh plugins (Generated via Antibody)
-[ -f .zsh_plugins.zsh ] && source .zsh_plugins.zsh
+[ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'

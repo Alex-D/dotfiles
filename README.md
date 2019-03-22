@@ -106,4 +106,6 @@ ln -sf /c/dev/oss/dotfiles/.zshrc ~/.zshrc
 curl -sL git.io/antibody | sh -s
 antibody bundle < /c/dev/oss/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 ```
+- [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
+- [Install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
 - Restart Hyper and you are ready to go!
