@@ -17,7 +17,7 @@ What's in this setup?
 	- Windows Subsystem for Linux (Ubuntu)
 	- Docker for Windows
 - Terminal: Hyper
-- Shell: zsh (with Oh My Zsh)
+- Shell: zsh
 	- git
 	- docker (works with Docker for Windows)
 	- docker-compose (works with Docker for Windows)
@@ -49,20 +49,24 @@ EOL
 - Reboot
 - [WSL] [Install Docker in WSL](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 - [WSL] [Install Docker Compose](https://docs.docker.com/compose/install/)
+- [WSL] Restore (or generate) the GPG key
 - [WSL] Install and setup Git
 ```bash
 # Set username and email for next commands
-username="Alex-D"
 email="contact@alex-d.fr"
+username="Alex-D"
+gpgkeyid="8FA78E6580B1222A"
 
 # Install Git
 sudo apt-get update
 sudo apt-get install git
 
 # Configure Git
-git config --global user.name "${username}"
 git config --global user.email "${email}"
-git config --add --global core.pager /usr/bin/less
+git config --global user.name "${username}"
+git config --global user.signingkey "${gpgkeyid}"
+git config --global commit.gpgsign true
+git config --global core.pager /usr/bin/less
 
 # Generate a new key
 ssh-keygen -t rsa -b 4096 -C "${email}"
