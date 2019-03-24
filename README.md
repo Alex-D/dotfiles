@@ -21,6 +21,8 @@ What's in this setup?
 	- git
 	- docker (works with Docker for Windows)
 	- docker-compose (works with Docker for Windows)
+	- node
+	- yarn
 
 
 Install
@@ -33,6 +35,8 @@ Install
 - In Docker for Windows settings, enable "Expose deamon" option
 - [Install "Fira Mono for Powerline"](https://github.com/powerline/fonts/tree/master/FiraMono)
 - [Install Hyper](https://hyper.is/#installation)
+- [Install Node](https://nodejs.org/en/download/current/)
+- [Install Yarn](https://yarnpkg.com/fr/docs/install#windows-stable)
 
 ### Windows Subsytem for Linux side
 
@@ -47,7 +51,7 @@ options = "metadata"
 EOL
 ```
 - Reboot
-- [WSL] [Install Docker in WSL](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [WSL] [Install Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 - [WSL] [Install Docker Compose](https://docs.docker.com/compose/install/)
 - [WSL] Restore (or generate) the GPG key
 - [WSL] Install and setup Git
@@ -85,13 +89,13 @@ cat ~/.ssh/id_rsa.pub
 mkdir -p /c/dev/oss/dotfiles
 git clone git@github.com:Alex-D/dotfiles.git /c/dev/oss/.dotfiles
 ```
-- [CMD] Use the custom *.hyper.js* config from this repo
+- [CMD] Use the custom `.hyper.js` config from this repo
 ```cmd
 del /f %HOMEPATH%\.hyper.js
 mklink /h %HOMEPATH%\.hyper.js C:\dev\oss\dotfiles\.hyper.js
 ```
 - Restart Hyper
-- [WSL] Install *zsh*
+- [WSL] Install `zsh`
 ```bash
 # Install zsh
 sudo apt-get update
@@ -106,6 +110,6 @@ ln -sf /c/dev/oss/dotfiles/.zshrc ~/.zshrc
 curl -sL git.io/antibody | sh -s
 antibody bundle < /c/dev/oss/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 ```
-- [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
-- [Install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
+- [WSL] [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
+- [WSL] [Install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
 - Restart Hyper and you are ready to go!
