@@ -86,13 +86,13 @@ cat ~/.ssh/id_rsa.pub
 - [WSL] Clone this repository
 ```bash
 # Finally clone the repository
-mkdir -p /c/dev/oss/dotfiles
-git clone git@github.com:Alex-D/dotfiles.git /c/dev/oss/.dotfiles
+mkdir -p /c/dev/dotfiles
+git clone git@github.com:Alex-D/dotfiles.git /c/dev/.dotfiles
 ```
 - [CMD] Use the custom `.hyper.js` config from this repo
 ```cmd
 del /f %HOMEPATH%\.hyper.js
-mklink /h %HOMEPATH%\.hyper.js C:\dev\oss\dotfiles\.hyper.js
+mklink /h %HOMEPATH%\.hyper.js C:\dev\dotfiles\.hyper.js
 ```
 - Restart Hyper
 - [WSL] Install `zsh`
@@ -102,13 +102,13 @@ sudo apt-get update
 sudo apt install zsh
 
 # Link custom dotfiles
-ln -sf /c/dev/oss/dotfiles/.zsh_autonamed_dirs.zsh ~/.zsh_autonamed_dirs.zsh
-ln -sf /c/dev/oss/dotfiles/.aliases.zsh ~/.aliases.zsh
-ln -sf /c/dev/oss/dotfiles/.zshrc ~/.zshrc
+ln -sf /c/dev/dotfiles/.zsh_autonamed_dirs.zsh ~/.zsh_autonamed_dirs.zsh
+ln -sf /c/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
+ln -sf /c/dev/dotfiles/.zshrc ~/.zshrc
 
 # Install Antibody and generate .zsh_plugins.zsh
 curl -sL git.io/antibody | sh -s
-antibody bundle < /c/dev/oss/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
+antibody bundle < /c/dev/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 ```
 - [WSL] [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
 - [WSL] [Install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
