@@ -1,0 +1,132 @@
+/* Move the hamburger menu to right */
+.header_hamburgerMenuLeft {
+  left: auto;
+  right: 120px;
+}
+
+.header_windowHeader {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Hide app title when more than 1 tab */
+.header_windowHeaderWithBorder .header_appTitle {
+  display: none;
+}
+
+/* Move tabs in header like in Chrome */
+.tabs_nav {
+  position: fixed;
+  top: 1px;
+  left: 1px;
+  z-index: 101;
+  width: calc(100% - 200px);
+  -webkit-app-region: no-drag;
+}
+
+/* Light up active tab */
+.tab_tab {
+  will-change: background-color;
+}
+.tab_tab.tab_active,
+.tab_tab:hover {
+  background-color: #282a36;
+  transition: background-color 150ms;
+}
+
+/* Do not shift since tabs are now in header */
+.terms_termsShifted {
+  margin-top: 34px;
+}
+
+/* Fade the title of inactive tabs and the content of inactive panes */
+.tab_text,
+.term_term {
+  opacity: 0.5;
+  will-change: opacity;
+}
+.tab_active .tab_text,
+.term_active .term_term {
+  opacity: 1;
+  transition: opacity 100ms;
+}
+
+/* Multi-pane divider */
+.splitpane_divider {
+  background-color: rgba(255, 106, 193, 0.2) !important;
+}
+
+/* Scollbar */
+.term_wrapper:not(:hover) ::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 50ms;
+}
+
+
+/* Hyper search custom theme */
+.hyper-search-wrapper {
+  border-radius: 0 !important;
+  border: 1px solid rgba(255, 106, 193, 0.4) !important;
+  height: 36px !important;
+  top: 10px !important;
+  right: 24px !important;
+  width: 274px !important;
+  padding: 5px 0px 5px 13px !important;
+  opacity: 1 !important;
+  background: #242530 !important;
+  box-shadow: 0 5px 15px rgba(255, 106, 193, 0.1);
+  animation: hyperSearchSlideDown 100ms;
+}
+.hyper-search-wrapper input {
+  font-size: 14px !important;
+  margin-right: 10px !important;
+  font-family: "Fira Mono for Powerline", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace !important;
+}
+.hyper-search-wrapper button {
+  background: none !important;
+  border-radius: 0 !important;
+  height: 24px !important;
+  width: 24px !important;
+  overflow: hidden;
+  text-indent: 50px;
+  opacity: 0.5 !important;
+  transition: opacity 100ms;
+}
+.hyper-search-wrapper button:hover {
+  opacity: 1 !important;
+}
+.hyper-search-wrapper button:nth-child(2),
+.hyper-search-wrapper button:nth-child(3) {
+  top: -1px !important;
+}
+.hyper-search-wrapper button::before {
+  content: "⯅";
+  color: #fff;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  text-indent: 0;
+}
+.hyper-search-wrapper button:nth-child(3)::before {
+  content: "⯆";
+  top: 2px;
+}
+.hyper-search-wrapper button:nth-child(4)::before {
+  content: "Aa";
+  top: 5px;
+}
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"] {
+  opacity: 0.6 !important;
+}
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]:hover {
+  opacity: 1 !important;
+}
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]::before {
+  color: rgb(255, 106, 193);
+}
+
+@keyframes hyperSearchSlideDown {
+  0% { transform: translateY(-15px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}

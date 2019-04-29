@@ -93,6 +93,8 @@ git clone git@github.com:Alex-D/dotfiles.git /c/dev/.dotfiles
 ```cmd
 del /f %HOMEPATH%\.hyper.js
 mklink /h %HOMEPATH%\.hyper.js C:\dev\dotfiles\.hyper.js
+del /f %HOMEPATH%\.hyper.css
+mklink /h %HOMEPATH%\.hyper.css C:\dev\dotfiles\.hyper.css
 ```
 - Restart Hyper
 - [WSL] Install `zsh`
