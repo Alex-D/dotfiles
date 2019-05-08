@@ -91,10 +91,8 @@ git clone git@github.com:Alex-D/dotfiles.git /c/dev/.dotfiles
 ```
 - [CMD] Use the custom `.hyper.js` config from this repo
 ```cmd
-del /f %HOMEPATH%\.hyper.js
-mklink /h %HOMEPATH%\.hyper.js C:\dev\dotfiles\.hyper.js
-del /f %HOMEPATH%\.hyper.css
-mklink /h %HOMEPATH%\.hyper.css C:\dev\dotfiles\.hyper.css
+del /f %USERPROFILE%\AppData\Roaming\Hyper\.hyper.js
+mklink /h %USERPROFILE%\AppData\Roaming\Hyper\.hyper.js C:\dev\dotfiles\.hyper.js
 ```
 - Restart Hyper
 - [WSL] Install `zsh`
