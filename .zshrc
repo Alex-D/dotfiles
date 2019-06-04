@@ -17,6 +17,13 @@ export EDITOR='vim'
 # Docker for Windows <> WSL
 export DOCKER_HOST=tcp://localhost:2375
 
+# Go
+export GOROOT=/usr/local/go
+export PATH=$GOROOT/bin:$PATH
+
+# Yarn
+export PATH=/home/ademode/.yarn/bin:$PATH
+
 ## History command configuration
 HISTSIZE=5000                 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history       # Where to save history to disk
