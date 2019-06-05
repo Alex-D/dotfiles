@@ -1,6 +1,9 @@
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
 
+# Set the right default umasl (see microsoft/WSL#352)
+grep --quiet Microsoft /proc/version 2>/dev/null && [[ "$(umask)" == '000' ]] && umask 022
+
 # Allows to shorten some paths
 setopt AUTO_NAME_DIRS
 [ -f ~/.zsh_autonamed_dirs.zsh ] && source ~/.zsh_autonamed_dirs.zsh
