@@ -107,7 +107,7 @@ ln -sf /c/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
 ln -sf /c/dev/dotfiles/.zshrc ~/.zshrc
 
 # Install Antibody and generate .zsh_plugins.zsh
-curl -sL git.io/antibody | sh -s
+curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 antibody bundle < /c/dev/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 ```
 - [WSL] [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)

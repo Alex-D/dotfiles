@@ -3,7 +3,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias ls='ls --color=auto'
+alias ls='ls -G'
 alias lsa='ls -lah'
 alias l='ls -lah'
 alias ll='ls -lh'

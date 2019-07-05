@@ -1,3 +1,7 @@
+# Autoload compaudit
+autoload -U compinit
+compinit
+
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
 
