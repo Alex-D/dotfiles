@@ -25,7 +25,12 @@ export EDITOR='vim'
 export DOCKER_HOST=tcp://localhost:2375
 
 # Go
+export GOPATH=$HOME/golang
 export GOROOT=/usr/local/go
+if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+    export GOROOT=/usr/local/opt/go/libexec
+fi
+
 export PATH=$GOROOT/bin:$PATH
 
 # Yarn
