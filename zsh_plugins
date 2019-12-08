@@ -1,6 +1,5 @@
 # Prompt
-mafredri/zsh-async branch:no-zpty
-sindresorhus/pure
+romkatv/powerlevel10k
 
 # Plugins
 rupa/z

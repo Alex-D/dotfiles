@@ -32,13 +32,13 @@ Install
 
 - [Enable WSL (Ubuntu)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - [Install Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-- In Docker for Windows settings, enable "Expose deamon" option
+- In Docker for Windows settings, enable "Expose daemon" option
 - [Install "Fira Mono for Powerline"](https://github.com/powerline/fonts/tree/master/FiraMono)
 - [Install Hyper](https://hyper.is/#installation)
 - [Install Node](https://nodejs.org/en/download/current/)
 - [Install Yarn](https://yarnpkg.com/fr/docs/install#windows-stable)
 
-### Windows Subsytem for Linux side
+### Windows Subsystem for Linux side
 
 - Run Hyper
 - [Hyper] Type `bash` from Hyper to go into WSL
@@ -71,6 +71,7 @@ git config --global user.name "${username}"
 git config --global user.signingkey "${gpgkeyid}"
 git config --global commit.gpgsign true
 git config --global core.pager /usr/bin/less
+git config --global core.excludesfile ~/.gitignore
 
 # Generate a new key
 ssh-keygen -t rsa -b 4096 -C "${email}"
@@ -104,7 +105,9 @@ sudo apt install zsh
 # Link custom dotfiles
 ln -sf /c/dev/dotfiles/.zsh_autonamed_dirs.zsh ~/.zsh_autonamed_dirs.zsh
 ln -sf /c/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
+ln -sf /c/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf /c/dev/dotfiles/.zshrc ~/.zshrc
+ln -sf /c/dev/dotfiles/.gitignore ~/.gitignore
 
 # Install Antibody and generate .zsh_plugins.zsh
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
