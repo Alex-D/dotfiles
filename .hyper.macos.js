@@ -22,7 +22,7 @@ module.exports = {
     fontWeightBold: 'bold',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgba(248,28,229,0.8)',
+    cursorColor: '#97979b',
 
     // terminal text color under BLOCK cursor
     cursorAccentColor: '#000',
@@ -34,17 +34,17 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: '#eff0eb',
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#000',
+    backgroundColor: '#0f111a',
 
     // terminal selection color
-    selectionColor: 'rgba(248,28,229,0.3)',
+    selectionColor: 'rgba(151, 151, 155, 0.2)',
 
     // border color (window, tabs)
-    borderColor: '#333',
+    borderColor: '#222430',
 
     // custom CSS to embed in the main window
     css: `
@@ -78,6 +78,7 @@ module.exports = {
   height: 24px !important;
   width: 24px !important;
   overflow: hidden;
+  text-indent: 50px;
   opacity: 0.5 !important;
   transition: opacity 100ms;
 }
@@ -86,28 +87,33 @@ module.exports = {
 }
 .hyper-search-wrapper button:nth-child(2),
 .hyper-search-wrapper button:nth-child(3) {
-  color: #fff;
   top: -1px !important;
 }
-.hyper-search-wrapper button:nth-child(4) {
-  text-indent: 50px;
-}
-.hyper-search-wrapper button:nth-child(4)::before {
-  content: "Aa";
+.hyper-search-wrapper button::before {
+  content: "⯅";
+  color: #fff;
   position: absolute;
-  top: 6px;
+  top: 4px;
   left: 0;
   height: 24px;
   width: 24px;
   text-indent: 0;
 }
-.hyper-search-wrapper button.hyper-search-case-button.hyper-search-case-button-unfocused {
-  opacity: 0.7 !important;
+.hyper-search-wrapper button:nth-child(3)::before {
+  content: "⯆";
+  top: 2px;
 }
-.hyper-search-wrapper button.hyper-search-case-button.hyper-search-case-button-unfocused:hover {
+.hyper-search-wrapper button:nth-child(4)::before {
+  content: "Aa";
+  top: 5px;
+}
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"] {
+  opacity: 0.6 !important;
+}
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]:hover {
   opacity: 1 !important;
 }
-.hyper-search-wrapper button.hyper-search-case-button.hyper-search-case-button-focused::before {
+.hyper-search-wrapper button:nth-child(4)[style*="background: rgb(40, 42, 54);"]::before {
   color: rgb(255, 106, 193);
 }
 
@@ -136,22 +142,22 @@ module.exports = {
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
     colors: {
-      black: '#000000',
-      red: '#C51E14',
-      green: '#1DC121',
-      yellow: '#C7C329',
-      blue: '#0A2FC4',
-      magenta: '#C839C5',
-      cyan: '#20C5C6',
-      white: '#C7C7C7',
+      black: '#0f111a',
+      red: '#ff5c57',
+      green: '#5af78e',
+      yellow: '#f3f99d',
+      blue: '#57c7ff',
+      magenta: '#ff6ac1',
+      cyan: '#9aedfe',
+      white: '#f1f1f0',
       lightBlack: '#686868',
-      lightRed: '#FD6F6B',
-      lightGreen: '#67F86F',
-      lightYellow: '#FFFA72',
-      lightBlue: '#6A76FB',
-      lightMagenta: '#FD7CFC',
-      lightCyan: '#68FDFE',
-      lightWhite: '#FFFFFF',
+      lightRed: '#ff5c57',
+      lightGreen: '#5af78e',
+      lightYellow: '#f3f99d',
+      lightBlue: '#57c7ff',
+      lightMagenta: '#ff6ac1',
+      lightCyan: '#9aedfe',
+      lightWhite: '#eff0eb',
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -201,7 +207,6 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-snazzy',
     'hyper-search'
   ],
 
@@ -215,4 +220,3 @@ module.exports = {
     // 'window:devtools': 'cmd+alt+o',
   },
 };
-

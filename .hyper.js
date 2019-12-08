@@ -22,7 +22,7 @@ module.exports = {
     fontWeightBold: 'bold',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgba(248,28,229,0.8)',
+    cursorColor: '#97979b',
 
     // terminal text color under BLOCK cursor
     cursorAccentColor: '#000',
@@ -34,23 +34,23 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: '#eff0eb',
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#000',
+    backgroundColor: '#0f111a',
 
     // terminal selection color
-    selectionColor: 'rgba(248,28,229,0.3)',
+    selectionColor: 'rgba(151, 151, 155, 0.2)',
 
     // border color (window, tabs)
-    borderColor: '#333',
+    borderColor: '#222430',
 
     // custom CSS to embed in the main window
     css: `
 /* 3.0.0 background fix */
 .hyper_main {
-  background-color: #282a36 !important;
+  background-color: #0f111a !important;
 }
 
 /* Move the hamburger menu to right */
@@ -60,7 +60,7 @@ module.exports = {
 }
 
 .header_windowHeader {
-  background: rgba(0, 0, 0, 0.1);
+  background: #090b10;
 }
 
 /* Hide app title when more than 1 tab */
@@ -78,13 +78,49 @@ module.exports = {
   -webkit-app-region: no-drag;
 }
 
+/* Hide title when only one tab */
+.tabs_title {
+  display: none !important;
+}
+
+/* Add a highlight line below the active tab */
+.tab_tab::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #84ffff;
+  transform: scaleX(0);
+  will-change: transform;
+}
+.tab_tab.tab_active::before {
+  transform: scaleX(1);
+  transition: all 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Fade the title of inactive tabs and the content of inactive panes */
+.tab_text,
+.term_term {
+  opacity: 0.6;
+  will-change: opacity;
+}
+.tab_active .tab_text,
+.term_active .term_term {
+  opacity: 1;
+  transition: opacity 0.12s ease-in-out;
+}
+
 /* Light up active tab */
 .tab_tab {
+  border-left: none;
+  border-right: none;
   will-change: background-color;
 }
 .tab_tab.tab_active,
 .tab_tab:hover {
-  background-color: #282a36;
+  background-color: #0f111a;
   transition: background-color 150ms;
 }
 
@@ -206,22 +242,22 @@ module.exports = {
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
     colors: {
-      black: '#000000',
-      red: '#C51E14',
-      green: '#1DC121',
-      yellow: '#C7C329',
-      blue: '#0A2FC4',
-      magenta: '#C839C5',
-      cyan: '#20C5C6',
-      white: '#C7C7C7',
+      black: '#0f111a',
+      red: '#ff5c57',
+      green: '#5af78e',
+      yellow: '#f3f99d',
+      blue: '#57c7ff',
+      magenta: '#ff6ac1',
+      cyan: '#9aedfe',
+      white: '#f1f1f0',
       lightBlack: '#686868',
-      lightRed: '#FD6F6B',
-      lightGreen: '#67F86F',
-      lightYellow: '#FFFA72',
-      lightBlue: '#6A76FB',
-      lightMagenta: '#FD7CFC',
-      lightCyan: '#68FDFE',
-      lightWhite: '#FFFFFF',
+      lightRed: '#ff5c57',
+      lightGreen: '#5af78e',
+      lightYellow: '#f3f99d',
+      lightBlue: '#57c7ff',
+      lightMagenta: '#ff6ac1',
+      lightCyan: '#9aedfe',
+      lightWhite: '#eff0eb',
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -271,7 +307,6 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-snazzy',
     'hyper-search'
   ],
 
