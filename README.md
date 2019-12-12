@@ -103,7 +103,6 @@ sudo apt-get update
 sudo apt install zsh
 
 # Link custom dotfiles
-ln -sf /c/dev/dotfiles/.zsh_autonamed_dirs.zsh ~/.zsh_autonamed_dirs.zsh
 ln -sf /c/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
 ln -sf /c/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf /c/dev/dotfiles/.zshrc ~/.zshrc
