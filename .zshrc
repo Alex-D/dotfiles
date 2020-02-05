@@ -34,7 +34,7 @@ if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
     export GOROOT=/usr/local/opt/go/libexec
 fi
 
-export PATH=$GOROOT/bin:$PATH
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # Yarn
 export PATH=/home/ademode/.yarn/bin:$PATH
