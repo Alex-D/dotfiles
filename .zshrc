@@ -5,8 +5,17 @@ compinit
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
 
-# Set the right default umasl (see microsoft/WSL#352)
-grep --quiet Microsoft /proc/version 2>/dev/null && [[ "$(umask)" == '000' ]] && umask 022
+# WSL specific things
+if grep --quiet Microsoft /proc/version 2>/dev/null; then
+  # Set the right default umask (see microsoft/WSL#352)
+  umask 022
+
+  # Docker for Windows <> WSL
+  export DOCKER_HOST=tcp://localhost:2375
+
+  # Set Windows display for WSL
+  export DISPLAY=$(cat /etc/hosts | grep host.docker.internal | awk '{print $1}' | tail -n1)':0.0'
+fi
 
 # Custom aliases
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
@@ -24,14 +33,11 @@ fi
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-# Docker for Windows <> WSL
-export DOCKER_HOST=tcp://localhost:2375
-
 # Go
 export GOPATH=$HOME/golang
 export GOROOT=/usr/local/go
-if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
-    export GOROOT=/usr/local/opt/go/libexec
+if [[ "$(uname 2> /dev/null)" == "Darwin" ]]; then
+  export GOROOT=/usr/local/opt/go/libexec
 fi
 
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
