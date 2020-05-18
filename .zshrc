@@ -6,13 +6,7 @@ compinit
 unsetopt BG_NICE
 
 # WSL specific things
-if grep --quiet Microsoft /proc/version 2>/dev/null; then
-  # Set the right default umask (see microsoft/WSL#352)
-  umask 022
-
-  # Docker for Windows <> WSL
-  export DOCKER_HOST=tcp://localhost:2375
-
+if grep --quiet microsoft /proc/version 2>/dev/null; then
   # Set Windows display for WSL
   export DISPLAY=$(cat /etc/hosts | grep host.docker.internal | awk '{print $1}' | tail -n1)':0.0'
 fi
@@ -33,9 +27,12 @@ fi
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
+# screen
+export SCREENDIR=$HOME/.screen
+
 # Go
 export GOPATH=$HOME/golang
-export GOROOT=/usr/local/go
+export GOROOT=/usr/lib/go-1.14
 if [[ "$(uname 2> /dev/null)" == "Darwin" ]]; then
   export GOROOT=/usr/local/opt/go/libexec
 fi
@@ -43,7 +40,7 @@ fi
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # Yarn
-export PATH=/home/ademode/.yarn/bin:$PATH
+export PATH=$HOME/.yarn/bin:$PATH
 
 ## History command configuration
 HISTSIZE=5000                 # How many lines of history to keep in memory

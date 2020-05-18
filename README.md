@@ -4,66 +4,106 @@ My Windows 10 Setup & Dotfiles
 Goals of this setup
 -------------------
 
-- Working on Windows 10 Pro (Pro is needed for Hyper-V which is needed by Docker for Windows)
-- Having a visually nice terminal (Hyper)
-- Zsh as my main shell
-- Using Docker and Docker Compose without using PowerShell (so directly from zsh)
+- Working on Windows 10 Pro (Pro is needed because WSL2 uses Hyper-V under the hood)
+- Having a visually nice terminal (Windows Terminal)
+- zsh as my main shell
+- Using Docker and Docker Compose directly from zsh
+- Using IntelliJ IDEA directly from WSL 2
 
 
 What's in this setup?
 ---------------------
 
-- Host: Windows 10 Pro
-	- Windows Subsystem for Linux (Ubuntu)
-	- Docker for Windows
-- Terminal: Hyper
+- Host: Windows 10 Pro 2004+
+  - Ubuntu via WSL 2 (Windows Subsystem for Linux)
+  - Docker for Windows
+- Terminal: Windows Terminal
 - Shell: zsh
-	- git
-	- docker (works with Docker for Windows)
-	- docker-compose (works with Docker for Windows)
-	- node
-	- yarn
+  - git
+  - docker (works with Docker for Windows)
+  - docker-compose (works with Docker for Windows)
+  - node
+  - yarn
+- IDE: IntelliJ IDEA, under WSL 2, used on Windows via XLaunch
 
 
 Install
 -------
 
-### Windows side
+### On Windows
 
-- [Enable WSL (Ubuntu)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Enable WSL 2 (Ubuntu)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - [Install Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-- In Docker for Windows settings, enable "Expose daemon" option
-- [Install "Fira Mono for Powerline"](https://github.com/powerline/fonts/tree/master/FiraMono)
-- [Install Hyper](https://hyper.is/#installation)
-- [Install Node](https://nodejs.org/en/download/current/)
-- [Install Yarn](https://yarnpkg.com/fr/docs/install#windows-stable)
+  - In Docker for Windows settings, check "Use the WSL 2 based engine"
+- [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
+- [Install Xming (XLaunch)](https://sourceforge.net/projects/xming/files/latest/download)
+- [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
+- Open Windows Terminal
+- Go to Ubuntu via `bash`
 
-### Windows Subsystem for Linux side
+### On WSL 2
 
-- Run Hyper
-- [Hyper] Type `bash` from Hyper to go into WSL
-- [WSL] Change WSL automount root to allow Docker volumes to work from WSL to Docker for Windows:
+#### Install dependencies
+
 ```bash
-sudo tee /etc/wsl.conf >/dev/null <<EOL
-[automount]
-root = /
-options = "metadata"
-EOL
+# curl
+sudo apt update && sudo apt install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+# Add Node.js to sources.list
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
+# Add Yarn to sources.list
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+# Add Docker to sources.list
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   bionic \
+   stable"
+
+# Install tools
+sudo apt update && sudo apt upgrade
+sudo apt install -y \
+    containerd.io \
+    docker-ce \
+    docker-ce-cli \
+    fontconfig \
+    git \
+    make \
+    nodejs \
+    yarn \
+    zsh \
+
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Create .screen folder used by .zshrc
+mkdir ~/.screen && chmod 700 ~/.screen
 ```
-- Reboot
-- [WSL] [Install Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-- [WSL] [Install Docker Compose](https://docs.docker.com/compose/install/)
-- [WSL] Restore (or generate) the GPG key
-- [WSL] Install and setup Git
+
+#### Restore (or generate) the GPG key
+
+- On old system, create a backup of a GPG key
+  - `gpg --list-secret-keys`
+  - `gpg --export-secret-keys {{KEY_ID}} > /tmp/private.key`
+- On new system, import the key:
+  - `gpg --import /tmp/private.key`
+- Delete the `/tmp/private.key` on both side
+
+#### Setup Git
+
 ```bash
 # Set username and email for next commands
 email="contact@alex-d.fr"
 username="Alex-D"
 gpgkeyid="8FA78E6580B1222A"
-
-# Install Git
-sudo apt-get update
-sudo apt-get install git
 
 # Configure Git
 git config --global user.email "${email}"
@@ -83,35 +123,56 @@ ssh-add ~/.ssh/id_rsa
 # Display the public key ready to be copy pasted to GitHub
 cat ~/.ssh/id_rsa.pub
 ```
+
 - [Add the generated key to GitHub](https://github.com/settings/ssh/new)
-- [WSL] Clone this repository
+
+#### Setup zsh
+
 ```bash
 # Finally clone the repository
-mkdir -p /c/dev/dotfiles
-git clone git@github.com:Alex-D/dotfiles.git /c/dev/.dotfiles
-```
-- [CMD] Use the custom `.hyper.js` config from this repo
-```cmd
-del /f %USERPROFILE%\AppData\Roaming\Hyper\.hyper.js
-mklink /h %USERPROFILE%\AppData\Roaming\Hyper\.hyper.js C:\dev\dotfiles\.hyper.js
-```
-- Restart Hyper
-- [WSL] Install `zsh`
-```bash
-# Install zsh
-sudo apt-get update
-sudo apt install zsh
-
-# Link custom dotfiles
-ln -sf /c/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
-ln -sf /c/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -sf /c/dev/dotfiles/.zshrc ~/.zshrc
-ln -sf /c/dev/dotfiles/.gitignore ~/.gitignore
+mkdir -p ~/dev/dotfiles
+git clone git@github.com:Alex-D/dotfiles.git ~/dev/dotfiles
 
 # Install Antibody and generate .zsh_plugins.zsh
-curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
-antibody bundle < /c/dev/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
+curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+antibody bundle < ~/dev/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
+
+# Link custom dotfiles
+ln -sf ~/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
+ln -sf ~/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
+ln -sf ~/dev/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dev/dotfiles/.gitignore ~/.gitignore
 ```
-- [WSL] [Install node (not nvm, too slow)](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
-- [WSL] [Install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
-- Restart Hyper and you are ready to go!
+
+#### Install IntelliJ IDEA
+
+```bash
+sudo mkdir /opt/idea
+# Allow user to run IDEA updates from GUI
+sudo chmod 777 /opt/idea
+curl -L "https://download.jetbrains.com/product?code=IIU&latest&distribution=linux" | tar vxz -C /opt/idea --strip 1
+```
+
+#### Copy useful files to Windows
+
+```bash
+windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+
+# Windows Terminal settings
+cp ~/dev/dotfiles/terminal-settings.json ${windowsUserProfile}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+
+# Avoid too much RAM consumption
+cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
+
+# Get the hacky network bridge script
+cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
+```
+
+- Then, when port forwarding does not work between WSL 2 and Windows
+
+```bash
+# This is a custom alias, see .aliases.zsh for more details
+wslb
+```
+
+

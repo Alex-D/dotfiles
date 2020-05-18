@@ -26,7 +26,7 @@
       "name": "WSL Ubuntu",
       "startingDirectory": "\\\\wsl$\\Ubuntu\\home\\ademode",
       "source": "Windows.Terminal.Wsl",
-      "closeOnExit": "graceful",
+      "closeOnExit": "always",
       "colorScheme": "Snazzy",
       "cursorColor": "#97979b",
       "cursorShape": "filledBox",
