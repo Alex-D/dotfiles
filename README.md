@@ -78,6 +78,7 @@ sudo apt install -y \
     git \
     make \
     nodejs \
+    tig \
     yarn \
     zsh \
 
