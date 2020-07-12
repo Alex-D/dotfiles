@@ -8,7 +8,7 @@ unsetopt BG_NICE
 # WSL specific things
 if grep --quiet microsoft /proc/version 2>/dev/null; then
   # Set Windows display for WSL
-  export DISPLAY=$(cat /etc/hosts | grep host.docker.internal | awk '{print $1}' | tail -n1)':0.0'
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')':0.0'
 fi
 
 # Custom aliases
