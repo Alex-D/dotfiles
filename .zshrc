@@ -9,6 +9,7 @@ unsetopt BG_NICE
 if grep --quiet microsoft /proc/version 2>/dev/null; then
   # Set Windows display for WSL
   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')':0.0'
+  export LIBGL_ALWAYS_INDIRECT=1
 fi
 
 # Custom aliases
