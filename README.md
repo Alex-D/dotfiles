@@ -32,14 +32,18 @@ Install
 
 ### On Windows
 
-- [Enable WSL 2 (Ubuntu)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Enable WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Install WSL 2 Kernel](https://docs.microsoft.com/en-us/windows/wsl/wsl2-kernel)
+- Open PowerShell and run `wsl --set-default-version 2`
+- [Install Ubuntu from Microsoft Store](https://www.microsoft.com/fr-fr/p/ubuntu/9nblggh4msv6)
 - [Install Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-  - In Docker for Windows settings, check "Use the WSL 2 based engine"
+  - Make sure that the "Use the WSL 2 based engine" option is checked in Docker for Windows settings
 - [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
 - [Install Xming (XLaunch)](https://sourceforge.net/projects/xming/files/latest/download)
 - [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
-- Open Windows Terminal
-- Go to Ubuntu via `bash`
+- Open Windows Terminal as an Administrator
+- Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` to get `wslb` alias work properly
+- Run `bash` to go to Ubuntu
 
 ### On WSL 2
 
@@ -167,6 +171,9 @@ cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
 
 # Get the hacky network bridge script
 cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
+
+# Run Xming at startup
+cp ~/dev/dotfiles/config.xlaunch "${windowsUserProfile}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup"
 ```
 
 - Then, when port forwarding does not work between WSL 2 and Windows
@@ -175,5 +182,3 @@ cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
 # This is a custom alias, see .aliases.zsh for more details
 wslb
 ```
-
-
