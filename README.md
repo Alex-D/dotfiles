@@ -39,7 +39,7 @@ Install
 - [Install Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
   - Make sure that the "Use the WSL 2 based engine" option is checked in Docker for Windows settings
 - [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
-- [Install Xming (XLaunch)](https://sourceforge.net/projects/xming/files/latest/download)
+- [Install VcXsrv (XLaunch)](https://sourceforge.net/projects/vcxsrv/)
 - [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
 - Open Windows Terminal as an Administrator
 - Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` to get `wslb` alias work properly
