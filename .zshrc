@@ -43,6 +43,9 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # Yarn
 export PATH=$HOME/.yarn/bin:$PATH
 
+# Npm
+export PATH=~/.npm-global/bin:$PATH
+
 ## History command configuration
 HISTSIZE=5000                 # How many lines of history to keep in memory
 HISTFILE=~/.zsh_history       # Where to save history to disk

@@ -91,6 +91,10 @@ sudo usermod -aG docker $USER
 
 # Create .screen folder used by .zshrc
 mkdir ~/.screen && chmod 700 ~/.screen
+
+# Change npm's default directory
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
 ```
 
 #### Restore (or generate) the GPG key
