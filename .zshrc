@@ -18,6 +18,9 @@ fi
 # All zsh plugins (Generated via Antibody)
 [ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
 
+# Secret env
+[ -f ~/.env ] && source ~/.env
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
