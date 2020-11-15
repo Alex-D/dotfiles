@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Autoload compaudit
 autoload -U compinit
 compinit
