@@ -269,14 +269,6 @@ When a port is listening from WSL 2, it cannot be reached.
 You need to create port proxies for each port you want to use.
 To avoid doing than manually each time I start my computer, I've made the `wslb` alias that will run the `wsl2bridge.ps1` script in an admin Powershell.
 
-In order to allow `wsl2-bridge.ps1` script to run, you need to update your PowerShell execution policy.
-
-```powershell
-# In PowerShell as Administrator
-
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-```
-
 ```zsh
 #!/bin/zsh
 
@@ -284,6 +276,15 @@ windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr 
 
 # Get the hacky network bridge script
 cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
+```
+
+In order to allow `wsl2-bridge.ps1` script to run, you need to update your PowerShell execution policy.
+
+```powershell
+# In PowerShell as Administrator
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+PowerShell -File $env:USERPROFILE\\wsl2-bridge.ps1
 ```
 
 Then, when port forwarding does not work between WSL 2 and Windows, run `wslb` from zsh:
