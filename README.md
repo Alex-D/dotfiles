@@ -24,7 +24,8 @@ What's in this setup?
   - docker-compose (works with Docker Desktop)
 - Node.js (using [Volta](https://volta.sh))
   - node
-  - npm / yarn
+  - npm
+  - yarn
 - IDE: IntelliJ IDEA, under WSL 2, used on Windows via VcXsrv
 - WSL Bridge: allow exposing WSL 2 ports on the network
 
@@ -38,6 +39,8 @@ Setup WSL 2
 - Enable WSL 2 and update the linux kernel ([Source](https://docs.microsoft.com/en-us/windows/wsl/install-win10))
 
 ```powershell
+# In PowerShell as Administrator
+
 # Enable WSL and VirtualMachinePlatform features
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -61,6 +64,8 @@ Install common dependencies
 ---------------------------
 
 ```bash
+#!/bin/bash
+
 sudo apt update && sudo apt install -y \
     apt-transport-https \
     ca-certificates \
@@ -99,6 +104,8 @@ Setup Git
 ---------
 
 ```bash
+#!/bin/bash
+
 # Set username and email for next commands
 email="contact@alex-d.fr"
 username="Alex-D"
@@ -130,7 +137,9 @@ Setup zsh
 ---------
 
 ```bash
-# Finally clone the repository
+#!/bin/zsh
+
+# Clone the dotfiles repository
 mkdir -p ~/dev/dotfiles
 git clone git@github.com:Alex-D/dotfiles.git ~/dev/dotfiles
 
@@ -163,12 +172,12 @@ Docker
 ### Setup Docker CLI
 
 ```zsh
+#!/bin/zsh
+
 # Add Docker to sources.list
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   focal \
-   stable"
+versionCodename=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2)
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(versionCodename) stable"
 
 # Install tools
 sudo apt update && sudo apt install -y \
@@ -183,6 +192,8 @@ Node.js
 -------
 
 ```zsh
+#!/bin/zsh
+
 # Install Volta
 mkdir -p $VOLTA_HOME
 curl https://get.volta.sh | bash -s -- --skip-setup
@@ -211,6 +222,8 @@ cp ~/dev/dotfiles/config.xlaunch "${windowsUserProfile}/AppData/Roaming/Microsof
 ### Install IntelliJ IDEA
 
 ```zsh
+#!/bin/zsh
+
 # Install IDEA dependencies
 sudo apt update && sudo apt install -y \
     fontconfig \
@@ -240,6 +253,8 @@ Setup Windows Terminal
 - [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
 
 ```zsh
+#!/bin/zsh
+
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
 # Copy Windows Terminal settings
@@ -256,10 +271,15 @@ To avoid doing than manually each time I start my computer, I've made the `wslb`
 
 In order to allow `wsl2-bridge.ps1` script to run, you need to update your PowerShell execution policy.
 
-- Open PowerShell as an Administrator
-- Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` to get `wslb` alias work properly
+```powershell
+# In PowerShell as Administrator
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+```
 
 ```zsh
+#!/bin/zsh
+
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
 # Get the hacky network bridge script
@@ -269,6 +289,8 @@ cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
 Then, when port forwarding does not work between WSL 2 and Windows, run `wslb` from zsh:
 
 ```zsh
+#!/bin/zsh
+
 wslb
 ```
 
@@ -279,6 +301,8 @@ Limit WSL 2 RAM consumption
 ---------------------------
 
 ```zsh
+#!/bin/zsh
+
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
 # Avoid too much RAM consumption
