@@ -45,11 +45,9 @@ fi
 
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-# Yarn
-export PATH=$HOME/.yarn/bin:$PATH
-
-# Npm
-export PATH=~/.npm-global/bin:$PATH
+# Volta (node, npm)
+export VOLTA_HOME=$HOME/.volta
+export PATH=$VOLTA_HOME/bin:$PATH
 
 ## History command configuration
 HISTSIZE=5000                 # How many lines of history to keep in memory

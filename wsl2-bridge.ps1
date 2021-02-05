@@ -13,7 +13,7 @@ else
 
 #[Ports]
 # All the ports you want to forward separated by coma
-$ports = @(3000, 8000, 8080, 8081, 8888);
+$ports = @(22, 3000, 8000, 8080, 8081, 8888);
 
 
 #[Static IP]
@@ -37,6 +37,7 @@ foreach ($port in $ports)
 #[VcXsrv]
 
 # Remove VcXsrv Firewall Exception Rules
+iex "Remove-NetFireWallRule -DisplayName 'VcXsrv windows xserver'" -ErrorAction SilentlyContinue;
 iex "Remove-NetFireWallRule -DisplayName 'WSL 2 VcXsrv'" -ErrorAction SilentlyContinue;
 
 # Add VcXsrv Exception Rule for inbound

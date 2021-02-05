@@ -4,7 +4,7 @@ My Windows 10 Setup & Dotfiles
 Goals of this setup
 -------------------
 
-- Working on Windows 10 Pro (Pro is needed because WSL2 uses Hyper-V under the hood)
+- Working on Windows 10
 - Having a visually nice terminal (Windows Terminal)
 - zsh as my main shell
 - Using Docker and Docker Compose directly from zsh
@@ -14,90 +14,56 @@ Goals of this setup
 What's in this setup?
 ---------------------
 
-- Host: Windows 10 Pro 2004+
+- Host: Windows 10 2004+
   - Ubuntu via WSL 2 (Windows Subsystem for Linux)
-  - Docker for Windows
+  - Docker Desktop
 - Terminal: Windows Terminal
 - Shell: zsh
   - git
-  - docker (works with Docker for Windows)
-  - docker-compose (works with Docker for Windows)
+  - docker (works with Docker Desktop)
+  - docker-compose (works with Docker Desktop)
+- Node.js (using [Volta](https://volta.sh))
   - node
-  - yarn
-- IDE: IntelliJ IDEA, under WSL 2, used on Windows via XLaunch
+  - npm / yarn
+- IDE: IntelliJ IDEA, under WSL 2, used on Windows via VcXsrv
+- WSL Bridge: allow exposing WSL 2 ports on the network
 
 
-Install
--------
+----------------------
 
-### On Windows
 
-- [Enable WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+Setup WSL 2
+-----------
+
+- [Enable WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - [Install WSL 2 Kernel](https://docs.microsoft.com/en-us/windows/wsl/wsl2-kernel)
 - Open PowerShell and run `wsl --set-default-version 2`
 - [Install Ubuntu from Microsoft Store](https://www.microsoft.com/fr-fr/p/ubuntu/9nblggh4msv6)
-- [Install Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-  - Make sure that the "Use the WSL 2 based engine" option is checked in Docker for Windows settings
-- [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
-- [Install VcXsrv (XLaunch)](https://sourceforge.net/projects/vcxsrv/)
-- [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
-- Open Windows Terminal as an Administrator
-- Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` to get `wslb` alias work properly
-- Run `bash` to go to Ubuntu
 
-### On WSL 2
 
-#### Install dependencies
+Install common dependencies
+---------------------------
 
 ```bash
-# curl
 sudo apt update && sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg-agent \
-    software-properties-common
-
-# Add Node.js to sources.list
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-
-# Add Yarn to sources.list
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-# Add Docker to sources.list
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   bionic \
-   stable"
-
-# Install tools
-sudo apt update && sudo apt upgrade
-sudo apt install -y \
-    containerd.io \
-    docker-ce \
-    docker-ce-cli \
-    fontconfig \
+    software-properties-common \
     git \
     make \
-    nodejs \
     tig \
-    yarn \
-    zsh \
-
-# Add user to docker group
-sudo usermod -aG docker $USER
-
-# Create .screen folder used by .zshrc
-mkdir ~/.screen && chmod 700 ~/.screen
-
-# Change npm's default directory
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
+    zsh
 ```
 
-#### Restore (or generate) the GPG key
+
+GPG key
+-------
+
+If you already have a GPG key, restore it. If you did not have one, you can create one.
+
+### Restore
 
 - On old system, create a backup of a GPG key
   - `gpg --list-secret-keys`
@@ -106,7 +72,15 @@ npm config set prefix '~/.npm-global'
   - `gpg --import /tmp/private.key`
 - Delete the `/tmp/private.key` on both side
 
-#### Setup Git
+### Create
+
+- `gpg --full-generate-key`
+
+[Read GitHub documentation about generating a new GPG key for more details](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key).
+
+
+Setup Git
+---------
 
 ```bash
 # Set username and email for next commands
@@ -122,7 +96,7 @@ git config --global commit.gpgsign true
 git config --global core.pager /usr/bin/less
 git config --global core.excludesfile ~/.gitignore
 
-# Generate a new key
+# Generate a new SSH key
 ssh-keygen -t rsa -b 4096 -C "${email}"
 
 # Start ssh-agent and add the key to it
@@ -135,7 +109,9 @@ cat ~/.ssh/id_rsa.pub
 
 - [Add the generated key to GitHub](https://github.com/settings/ssh/new)
 
-#### Setup zsh
+
+Setup zsh
+---------
 
 ```bash
 # Finally clone the repository
@@ -151,38 +127,146 @@ ln -sf ~/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
 ln -sf ~/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf ~/dev/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/.gitignore ~/.gitignore
+
+# Create .screen folder used by .zshrc
+mkdir ~/.screen && chmod 700 ~/.screen
+
+# Change default shell to zsh
+chsh -s $(which zsh)
 ```
 
-#### Install IntelliJ IDEA
 
-```bash
-sudo mkdir /opt/idea
-# Allow user to run IDEA updates from GUI
-sudo chmod 777 /opt/idea
-curl -L "https://download.jetbrains.com/product?code=IIU&latest&distribution=linux" | tar vxz -C /opt/idea --strip 1
+Docker
+------
+
+### Install Docker Desktop
+
+- [Install Docker Desktop](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+- Make sure that the "Use the WSL 2 based engine" option is checked in Docker Desktop settings
+
+### Setup Docker CLI
+
+```zsh
+# Add Docker to sources.list
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   focal \
+   stable"
+
+# Install tools
+sudo apt update && sudo apt install -y \
+    docker-ce
+
+# Add user to docker group
+sudo usermod -aG docker $USER
 ```
 
-#### Copy useful files to Windows
 
-```bash
+Node.js
+-------
+
+```zsh
+# Install Volta
+mkdir -p $VOLTA_HOME
+curl https://get.volta.sh | bash -s -- --skip-setup
+
+# Install node and package managers
+volta install node npm yarn
+```
+
+
+IntelliJ IDEA
+-------------
+
+I run IntelliJ IDEA in WSL 2, and get its GUI on Windows via X Server (VcXsrv).
+
+### Setup VcXsrv
+
+- [Install VcXsrv (XLaunch)](https://sourceforge.net/projects/vcxsrv/)
+
+```zsh
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
-# Windows Terminal settings
-cp ~/dev/dotfiles/terminal-settings.json ${windowsUserProfile}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
-
-# Avoid too much RAM consumption
-cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
-
-# Get the hacky network bridge script
-cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
-
-# Run Xming at startup
+# Run VcXsrv at startup
 cp ~/dev/dotfiles/config.xlaunch "${windowsUserProfile}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup"
 ```
 
-- Then, when port forwarding does not work between WSL 2 and Windows
+### Install IntelliJ IDEA
 
-```bash
-# This is a custom alias, see .aliases.zsh for more details
+```zsh
+# Install IDEA dependencies
+sudo apt update && sudo apt install -y \
+    fontconfig \
+    libxss1 \
+    libnss3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libgbm1 \
+    libpangocairo-1.0-0 \
+    libcups2
+
+# Create install folder
+sudo mkdir /opt/idea
+
+# Allow your user to run IDEA updates from GUI
+sudo chown $UID:$UID /opt/idea
+
+# Download IntelliJ IDEA
+curl -L "https://download.jetbrains.com/product?code=IIU&latest&distribution=linux" | tar vxz -C /opt/idea --strip 1
+```
+
+
+Setup Windows Terminal
+----------------------
+
+- [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
+- [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
+
+```zsh
+windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+
+# Copy Windows Terminal settings
+cp ~/dev/dotfiles/terminal-settings.json ${windowsUserProfile}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+```
+
+
+WSL Bridge
+----------
+
+When a port is listening from WSL 2, it cannot be reached.
+You need to create port proxies for each port you want to use.
+To avoid doing than manually each time I start my computer, I've made the `wslb` alias that will run the `wsl2bridge.ps1` script in an admin Powershell.
+
+In order to allow `wsl2-bridge.ps1` script to run, you need to update your PowerShell execution policy.
+
+- Open PowerShell as an Administrator
+- Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` to get `wslb` alias work properly
+
+```zsh
+windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+
+# Get the hacky network bridge script
+cp ~/dev/dotfiles/wsl2-bridge.ps1 ${windowsUserProfile}/wsl2-bridge.ps1
+```
+
+Then, when port forwarding does not work between WSL 2 and Windows, run `wslb` from zsh:
+
+```zsh
 wslb
 ```
+
+Note: This is a custom alias. See [`.aliases.zsh`](.aliases.zsh) for more details
+
+
+Limit WSL 2 RAM consumption
+---------------------------
+
+```zsh
+windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+
+# Avoid too much RAM consumption
+cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
+```
+
+Note: You can adjust the RAM amount in `.wslconfig` file. Personally, I set it to 8 GB.
