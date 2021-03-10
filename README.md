@@ -311,3 +311,20 @@ cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
 ```
 
 Note: You can adjust the RAM amount in `.wslconfig` file. Personally, I set it to 8 GB.
+
+
+Setup Git Filter Repo
+---------------------
+
+```zsh
+#!/bin/zsh
+
+git clone git@github.com:newren/git-filter-repo.git /tmp/git-filter-repo
+cd /tmp/git-filter-repo
+make snag_docs
+cp -a git-filter-repo $(git --exec-path)
+cp -a Documentation/man1/git-filter-repo.1 $(git --man-path)/man1
+cp -a Documentation/html/git-filter-repo.html $(git --html-path)
+cd -
+rm -rf /tmp/git-filter-repo
+```
