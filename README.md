@@ -329,3 +329,11 @@ cp -a Documentation/html/git-filter-repo.html $(git --html-path)
 cd -
 rm -rf /tmp/git-filter-repo
 ```
+
+
+Setup GitBash
+-------------
+
+```bash
+git config --global core.sshCommand "ssh -i \\\\\\\\wsl$\\\\Ubuntu\\\\home\\\\ademode\\\\.ssh\\\\id_rsa"
+```

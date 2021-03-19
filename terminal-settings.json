@@ -33,10 +33,21 @@
       "padding": "17, 17, 17, 17"
     },
     {
-      // Make changes here to the cmd.exe profile
       "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
       "name": "cmd",
       "commandline": "cmd.exe",
+      "hidden": false,
+      "fontFace": "JetBrains Mono",
+      "fontSize": 11,
+      "padding": "17, 17, 17, 17"
+    },
+    {
+      "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
+      "name": "GitBash",
+      "startingDirectory": "\\e",
+      "commandline": "\"%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe\" --login -i -l",
+      "icon" : "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+      "closeOnExit": "always",
       "hidden": false,
       "fontFace": "JetBrains Mono",
       "fontSize": 11,
