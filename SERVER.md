@@ -124,6 +124,13 @@ sudo apt update && sudo apt install -y \
 ```
 
 
+Install Certbot
+---------------
+
+[Follow Certbot install instructions](https://certbot.eff.org/lets-encrypt/debianbuster-nginx)
+
+
+
 Install PHP-FPM
 ---------------
 
@@ -138,14 +145,19 @@ sudo apt-key add /tmp/packages.sury.org.gpg
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
 
 # Install PHP
-php_version="5.6"
+php_version="8.0"
 sudo apt update && sudo apt install -y \
     unzip \
     php${php_version} \
     php${php_version}-cli \
     php${php_version}-common \
     php${php_version}-fpm \
-    php${php_version}-pdo
+    php${php_version}-pdo \
+    php${php_version}-pdo-mysql \
+    php${php_version}-gd \
+    php${php_version}-intl \
+    php${php_version}-dom \
+    php${php_version}-xml
 ```
 
 
@@ -183,6 +195,81 @@ sudo apt update && sudo apt install -y \
     
 sudo mysql_secure_installation
 ```
+
+
+Setup Fail2ban
+--------------
+
+```shell script
+sudo apt update && sudo apt install -y \
+    fail2ban
+```
+
+```
+[sshd]
+enabled = true
+
+[sshd-ddos]
+enabled = true
+
+[recidive]
+enabled = true
+
+[nginx-badbots]
+enabled = true
+
+[nginx-noproxy]
+enabled = true
+
+[nginx-nohome]
+enabled = true
+
+[nginx-http-auth]
+enabled = true
+```
+
+
+Setup UFW
+---------
+
+```shell script
+sudo apt update && sudo apt install -y \
+    ufw
+```
+
+```shell script
+#!/bin/sh
+
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow smtp
+```
+
+
+Enable IPv6 on OVH VPS
+----------------------
+
+```shell script
+#!/bin/sh
+
+YOUR_IPV6="xxxx:xxxx:xxxx:..."
+IPV6_GATEWAY="xxxx:xxxx:xxxx:..."
+
+sudo tee /etc/network/interfaces.d/51-cloud-init-ipv6.cfg > /dev/null <<EOF
+auto eth0
+iface eth0 inet6 static
+mtu 1500
+address ${YOUR_IPV6}
+netmask 128
+post-up /sbin/ip -6 route add ${IPV6_GATEWAY} dev eth0
+post-up /sbin/ip -6 route add default via ${IPV6_GATEWAY} dev eth0
+pre-down /sbin/ip -6 route del default via ${IPV6_GATEWAY} dev eth0
+pre-down /sbin/ip -6 route del ${IPV6_GATEWAY} dev eth0
+EOF
+```
+
+Source: https://docs.ovh.com/ie/en/vps/configuring-ipv6/
 
 
 Setup Dropbox Uploader
