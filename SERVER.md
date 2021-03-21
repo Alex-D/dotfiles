@@ -17,7 +17,7 @@ Goals of this setup
 Install common dependencies
 ---------------------------
 
-```bash
+```shell script
 #!/bin/bash
 
 sudo apt update && sudo apt install -y \
@@ -39,7 +39,7 @@ sudo apt update && sudo apt install -y \
 Setup a user
 ------------
 
-```bash
+```shell script
 #!/bin/bash
 
 username="ademode"
@@ -58,7 +58,7 @@ sudo deluser --remove-home debian
 Change hostname
 ---------------
 
-```bash
+```shell script
 #!/bin/bash
 
 hostname="alexandredemode.fr"
@@ -74,7 +74,7 @@ echo "127.0.0.1 ${hostname}" | sudo tee -a /etc/hosts
 Setup Git
 ---------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Generate a new SSH key
@@ -92,7 +92,7 @@ cat ~/.ssh/id_rsa.pub
 Setup zsh
 ---------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Clone the dotfiles repository
@@ -116,7 +116,7 @@ chsh -s $(which zsh)
 Install nginx
 -------------
 
-```bash
+```shell script
 #!/bin/bash
 
 sudo apt update && sudo apt install -y \
@@ -127,7 +127,7 @@ sudo apt update && sudo apt install -y \
 Install PHP-FPM
 ---------------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Download and add the sury repository gpg key
@@ -152,17 +152,30 @@ sudo apt update && sudo apt install -y \
 Install Composer
 ----------------
 
-```bash
-#!/bin/bash
+```shell script
+#!/bin/sh
 
+EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
 
+if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
+then
+    >&2 echo 'ERROR: Invalid installer checksum'
+    rm composer-setup.php
+    exit 1
+fi
+
+php composer-setup.php --quiet
+RESULT=$?
+rm composer-setup.php
 ```
 
 
 Install MariaDB
 ---------------
 
-```bash
+```shell script
 #!/bin/bash
 
 sudo apt update && sudo apt install -y \
@@ -175,7 +188,7 @@ sudo mysql_secure_installation
 Setup Dropbox Uploader
 ----------------------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Download and install Dropbox Uploader
@@ -190,7 +203,7 @@ dropbox_uploader
 Setup Dropbox Headless
 ----------------------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Install required dependencies

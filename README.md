@@ -63,7 +63,7 @@ wsl --set-default-version 2
 Install common dependencies
 ---------------------------
 
-```bash
+```shell script
 #!/bin/bash
 
 sudo apt update && sudo apt install -y \
@@ -104,7 +104,7 @@ If you already have a GPG key, restore it. If you did not have one, you can crea
 Setup Git
 ---------
 
-```bash
+```shell script
 #!/bin/bash
 
 # Set username and email for next commands
@@ -137,7 +137,7 @@ cat ~/.ssh/id_rsa.pub
 Setup zsh
 ---------
 
-```bash
+```shell script
 #!/bin/zsh
 
 # Clone the dotfiles repository
@@ -172,7 +172,7 @@ Docker
 
 ### Setup Docker CLI
 
-```zsh
+```shell script
 #!/bin/zsh
 
 # Add Docker to sources.list
@@ -192,7 +192,7 @@ sudo usermod -aG docker $USER
 Node.js
 -------
 
-```zsh
+```shell script
 #!/bin/zsh
 
 # Install Volta
@@ -213,7 +213,7 @@ I run IntelliJ IDEA in WSL 2, and get its GUI on Windows via X Server (VcXsrv).
 
 - [Install VcXsrv (XLaunch)](https://sourceforge.net/projects/vcxsrv/)
 
-```zsh
+```shell script
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
 # Run VcXsrv at startup
@@ -222,7 +222,7 @@ cp ~/dev/dotfiles/config.xlaunch "${windowsUserProfile}/AppData/Roaming/Microsof
 
 ### Install IntelliJ IDEA
 
-```zsh
+```shell script
 #!/bin/zsh
 
 # Install IDEA dependencies
@@ -253,7 +253,7 @@ Setup Windows Terminal
 - [Download and install JetBrains Mono](https://www.jetbrains.com/mono/)
 - [Install Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
 
-```zsh
+```shell script
 #!/bin/zsh
 
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
@@ -270,7 +270,7 @@ When a port is listening from WSL 2, it cannot be reached.
 You need to create port proxies for each port you want to use.
 To avoid doing than manually each time I start my computer, I've made the `wslb` alias that will run the `wsl2bridge.ps1` script in an admin Powershell.
 
-```zsh
+```shell script
 #!/bin/zsh
 
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
@@ -290,7 +290,7 @@ PowerShell -File $env:USERPROFILE\\wsl2-bridge.ps1
 
 Then, when port forwarding does not work between WSL 2 and Windows, run `wslb` from zsh:
 
-```zsh
+```shell script
 #!/bin/zsh
 
 wslb
@@ -302,7 +302,7 @@ Note: This is a custom alias. See [`.aliases.zsh`](.aliases.zsh) for more detail
 Limit WSL 2 RAM consumption
 ---------------------------
 
-```zsh
+```shell script
 #!/bin/zsh
 
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
@@ -317,7 +317,7 @@ Note: You can adjust the RAM amount in `.wslconfig` file. Personally, I set it t
 Setup Git Filter Repo
 ---------------------
 
-```zsh
+```shell script
 #!/bin/zsh
 
 git clone git@github.com:newren/git-filter-repo.git /tmp/git-filter-repo
@@ -334,6 +334,6 @@ rm -rf /tmp/git-filter-repo
 Setup GitBash
 -------------
 
-```bash
+```shell script
 git config --global core.sshCommand "ssh -i \\\\\\\\wsl$\\\\Ubuntu\\\\home\\\\ademode\\\\.ssh\\\\id_rsa"
 ```
