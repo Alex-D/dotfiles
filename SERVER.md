@@ -206,6 +206,8 @@ sudo apt update && sudo apt install -y \
 ```
 
 ```
+# /etc/fail2ban/jail.local
+
 [sshd]
 enabled = true
 
@@ -267,6 +269,8 @@ post-up /sbin/ip -6 route add default via ${IPV6_GATEWAY} dev eth0
 pre-down /sbin/ip -6 route del default via ${IPV6_GATEWAY} dev eth0
 pre-down /sbin/ip -6 route del ${IPV6_GATEWAY} dev eth0
 EOF
+
+sudo systemctl restart networking
 ```
 
 Source: https://docs.ovh.com/ie/en/vps/configuring-ipv6/
