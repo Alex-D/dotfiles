@@ -77,6 +77,8 @@ Setup Git
 ```shell script
 #!/bin/bash
 
+email="contact@alex-d.fr"
+
 # Generate a new SSH key
 ssh-keygen -t rsa -b 4096 -C "${email}"
 
@@ -174,12 +176,10 @@ ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
 if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
 then
     >&2 echo 'ERROR: Invalid installer checksum'
-    rm composer-setup.php
-    exit 1
+else
+    php composer-setup.php --quiet
+    sudo mv composer.phar /usr/bin/composer
 fi
-
-php composer-setup.php --quiet
-RESULT=$?
 rm composer-setup.php
 ```
 
