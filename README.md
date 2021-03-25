@@ -335,5 +335,5 @@ Setup GitBash
 -------------
 
 ```shell script
-git config --global core.sshCommand "ssh -i \\\\\\\\wsl$\\\\Ubuntu\\\\home\\\\ademode\\\\.ssh\\\\id_rsa"
+git config --global core.sshCommand "ssh -i //wsl$/Ubuntu/home/ademode/.ssh/id_rsa"
 ```
