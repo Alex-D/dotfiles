@@ -36,6 +36,7 @@
       "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
       "name": "cmd",
       "commandline": "cmd.exe",
+      "closeOnExit": "always",
       "hidden": false,
       "fontFace": "JetBrains Mono",
       "fontSize": 11,
