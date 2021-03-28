@@ -334,6 +334,3 @@ rm -rf /tmp/git-filter-repo
 Setup GitBash
 -------------
 
-```shell script
-git config --global core.sshCommand "ssh -i //wsl$/Ubuntu/home/ademode/.ssh/id_rsa"
-```

@@ -6,21 +6,14 @@
   "$schema": "https://aka.ms/terminal-profiles-schema",
 
   "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+  "disabledProfileSources": [
+    "Windows.Terminal.Azure"
+  ],
 
   "profiles":
   [
     {
-      "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-      "hidden": false,
-      "name": "PowerShell Core",
-      "source": "Windows.Terminal.PowershellCore",
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
       "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-      "hidden": false,
       "name": "WSL Ubuntu",
       "startingDirectory": "\\\\wsl$\\Ubuntu\\home\\ademode",
       "source": "Windows.Terminal.Wsl",
@@ -33,32 +26,40 @@
       "padding": "17, 17, 17, 17"
     },
     {
+      "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
+      "name": "GitBash",
+      "commandline": "\"C:/git-sdk-64/bin/bash.exe\" --login -c \"zsh\"",
+      "icon" : "C:/git-sdk-64/mingw64/share/git/git-for-windows.ico",
+      "closeOnExit": "always",
+      "colorScheme": "Snazzy",
+      "cursorColor": "#97979b",
+      "cursorShape": "filledBox",
+      "fontFace": "JetBrains Mono",
+      "fontSize": 11,
+      "padding": "17, 17, 17, 17"
+    },
+    {
+      "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+      "name": "PowerShell Core",
+      "source": "Windows.Terminal.PowershellCore",
+      "closeOnExit": "always",
+      "fontFace": "JetBrains Mono",
+      "fontSize": 11,
+      "padding": "17, 17, 17, 17"
+    },
+    {
       "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
       "name": "cmd",
       "commandline": "cmd.exe",
       "closeOnExit": "always",
-      "hidden": false,
       "fontFace": "JetBrains Mono",
       "fontSize": 11,
       "padding": "17, 17, 17, 17"
     },
     {
-      "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
-      "name": "GitBash",
-      "startingDirectory": "\\e",
-      "commandline": "\"%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe\" --login -i -l",
-      "icon" : "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-      "closeOnExit": "always",
-      "hidden": false,
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
-      "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-      "hidden": true,
-      "name": "Azure Cloud Shell",
-      "source": "Windows.Terminal.Azure"
+      /* Windows PowerShell - hidden */
+      "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+      "hidden": true
     }
   ],
 

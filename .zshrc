@@ -1,9 +1,5 @@
 #!/bin/zsh
 
-# Autoload compaudit
-autoload -U compinit
-compinit
-
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
 
@@ -70,7 +66,6 @@ export LS_COLORS
 tabtitle_precmd() {
    pwd=$(dirs) # Store full path as variable
    cwd=${pwd##*/} # Extract current working dir only
-   #print -Pn "\e]0;$cwd\a" # Replace with $pwd to show full path
    printf "\033]0;%s\a" "$cwd" # Omit construct from $1 to show args
 }
 [[ -z $precmd_functions ]] && precmd_functions=()
@@ -85,3 +80,14 @@ preexec_functions=($preexec_functions tabtitle_preexec)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
+
+# Keybindings
+# Source: https://www.zsh.org/mla/users/2008/msg00794.html
+bindkey '\e[1~'   beginning-of-line  # Linux console
+bindkey '\e[H'    beginning-of-line  # xterm
+bindkey '\eOH'    beginning-of-line  # gnome-terminal
+bindkey '\e[2~'   overwrite-mode     # Linux console, xterm, gnome-terminal
+bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
+bindkey '\e[4~'   end-of-line        # Linux console
+bindkey '\e[F'    end-of-line        # xterm
+bindkey '\eOF'    end-of-line        # gnome-terminal
