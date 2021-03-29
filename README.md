@@ -4,7 +4,7 @@ My Windows 10 Setup & Dotfiles
 Goals of this setup
 -------------------
 
-- Working on Windows 10
+- Working on Windows 10, on WSL 2 filesystem
 - Having a visually nice terminal (Windows Terminal)
 - zsh as my main shell
 - Using Docker and Docker Compose directly from zsh
@@ -28,6 +28,13 @@ What's in this setup?
   - yarn
 - IDE: IntelliJ IDEA, under WSL 2, used on Windows via VcXsrv
 - WSL Bridge: allow exposing WSL 2 ports on the network
+
+
+Other guides
+------------
+
+- [GitBash with zsh](git-bash/README.md), for better git performances on Windows filesystem
+- [Server](server/README.md)
 
 
 ----------------------
@@ -329,8 +336,3 @@ cp -a Documentation/html/git-filter-repo.html $(git --html-path)
 cd -
 rm -rf /tmp/git-filter-repo
 ```
-
-
-Setup GitBash
--------------
-

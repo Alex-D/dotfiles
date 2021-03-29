@@ -1,6 +1,17 @@
 GitBash with zsh
 ================
 
+Goals of this setup
+-------------------
+
+- Working on Windows 10, on Windows filesystem
+- Having a visually nice terminal (Windows Terminal)
+- zsh as my main shell
+
+
+----------------------
+
+
 Install GitBash
 ---------------
 
@@ -24,10 +35,11 @@ git config --global user.email "${email}"
 git config --global user.name "${username}"
 git config --global user.signingkey "${gpgkeyid}"
 git config --global commit.gpgsign true
+git config --global gpg.program "$HOME/dotfiles/git-bash/.gpg-pinentry-loopback"
 git config --global core.pager /usr/bin/less
 git config --global core.excludesfile ~/.gitignore
 
-# Use ssh key setup in WSL2
+# Use ssh key from WSL2
 git config --global core.sshCommand "ssh -i //wsl$/Ubuntu/home/ademode/.ssh/id_rsa"
 ```
 
@@ -53,10 +65,22 @@ ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/git-bash/.zsh_plugins.zsh ~/.zsh_plugins.zsh
+ln -sf ~/dotfiles/git-bash/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+gpg-connect-agent reloadagent /bye
 
 # Git autocompletion
 mkdir -p ~/.zsh
 cd ~/.zsh
 curl -o git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 curl -o _git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+```
+
+
+GPG key
+-------
+
+Import all GPG keys from WSL 2
+
+```shell script
+wsl.exe gpg -a --export-secret-keys | gpg --import --pinentry-mode loopback
 ```
