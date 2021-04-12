@@ -28,7 +28,7 @@
     {
       "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
       "name": "GitBash",
-      "commandline": "\"C:/git-sdk-64/bin/bash.exe\" --login -c \"zsh\"",
+      "commandline": "\"C:/git-sdk-64/usr/bin/bash.exe\" --login -c \"zsh\"",
       "icon" : "C:/git-sdk-64/mingw64/share/git/git-for-windows.ico",
       "closeOnExit": "always",
       "colorScheme": "Snazzy",
