@@ -241,7 +241,8 @@ sudo apt update && sudo apt install -y \
     libatk-bridge2.0-0 \
     libgbm1 \
     libpangocairo-1.0-0 \
-    libcups2
+    libcups2 \
+    libxkbcommon0
 
 # Create install folder
 sudo mkdir /opt/idea
