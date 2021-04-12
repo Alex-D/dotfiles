@@ -65,6 +65,9 @@ ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/git-bash/.zsh_plugins.zsh ~/.zsh_plugins.zsh
+
+# GPG Agent
+mkdir ~/.gnupg
 ln -sf ~/dotfiles/git-bash/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 gpg-connect-agent reloadagent /bye
 
