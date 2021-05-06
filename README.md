@@ -185,7 +185,7 @@ Docker
 # Add Docker to sources.list
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 versionCodename=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2)
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(versionCodename) stable"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu ${versionCodename} stable"
 
 # Install tools
 sudo apt update && sudo apt install -y \
