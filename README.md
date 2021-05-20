@@ -83,6 +83,7 @@ sudo apt update && sudo apt install -y \
     make \
     tig \
     tree \
+    zip unzip \
     zsh
 ```
 
@@ -320,6 +321,35 @@ cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
 ```
 
 Note: You can adjust the RAM amount in `.wslconfig` file. Personally, I set it to 8 GB.
+
+
+Install kubectl
+---------------
+
+```shell script
+#!/bin/zsh
+
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+[Original documentation](https://master--kubernetes-io-master-staging.netlify.app/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management)
+
+
+Install AWS CLI
+---------------
+
+```shell script
+#!/bin/zsh
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+[Original documentation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
 
 
 Setup Git Filter Repo
