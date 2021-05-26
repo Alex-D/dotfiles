@@ -26,6 +26,7 @@ What's in this setup?
   - node
   - npm
   - yarn
+- Go
 - IDE: IntelliJ IDEA, under WSL 2, used on Windows via VcXsrv
 - WSL Bridge: allow exposing WSL 2 ports on the network
 
@@ -210,6 +211,22 @@ curl https://get.volta.sh | bash -s -- --skip-setup
 # Install node and package managers
 volta install node npm yarn
 ```
+
+
+Go
+---
+
+```shell script
+#!/bin/zsh
+
+goVersion=1.16.4
+curl -L https://golang.org/dl/go1.16.4.linux-amd64.tar.gz > /tmp/go${goVersion}.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf /tmp/go${goVersion}.linux-amd64.tar.gz
+rm /tmp/go${goVersion}.linux-amd64.tar.gz
+```
+
+[See official documentation](https://golang.org/doc/install)
 
 
 IntelliJ IDEA

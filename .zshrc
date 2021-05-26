@@ -33,13 +33,8 @@ export EDITOR='vim'
 export SCREENDIR=$HOME/.screen
 
 # Go
-export GOPATH=$HOME/golang
-export GOROOT=/usr/lib/go-1.14
-if [[ "$(uname 2> /dev/null)" == "Darwin" ]]; then
-  export GOROOT=/usr/local/opt/go/libexec
-fi
-
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # Volta (node, npm)
 export VOLTA_HOME=$HOME/.volta
