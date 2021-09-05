@@ -6,11 +6,18 @@ set -e
 #   @: folder path list to backup
 
 TMP_DIR="/tmp"
-BACKUP_FILE="$TMP_DIR/data.tar"
+BACKUP_FILE="$TMP_DIR/backup.tar"
 DROPBOX_UPLOADER_CONFIG_PATH="$HOME/.dropbox_uploader"
 
-tar cf "$BACKUP_FILE" "$@"
-gzip "$BACKUP_FILE"
+tar \
+  --exclude-vcs \
+  --exclude-backups \
+  --exclude "*app/cache*" \
+  --exclude "*var/cache*" \
+  --exclude "*vendor*" \
+  -czf \
+  "$BACKUP_FILE" \
+  "$@"
 
 dropbox_uploader -f "$DROPBOX_UPLOADER_CONFIG_PATH" upload "$BACKUP_FILE.gz" /
 
