@@ -167,7 +167,7 @@ Install Composer
 ----------------
 
 ```shell script
-#!/bin/sh
+#!/bin/zsh
 
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -240,7 +240,7 @@ sudo apt update && sudo apt install -y \
 ```
 
 ```shell script
-#!/bin/sh
+#!/bin/zsh
 
 sudo ufw allow ssh
 sudo ufw allow http
@@ -253,7 +253,7 @@ Enable IPv6 on OVH VPS
 ----------------------
 
 ```shell script
-#!/bin/sh
+#!/bin/zsh
 
 YOUR_IPV6="xxxx:xxxx:xxxx:..."
 IPV6_GATEWAY="xxxx:xxxx:xxxx:..."
@@ -280,7 +280,7 @@ Setup Dropbox Uploader
 ----------------------
 
 ```shell script
-#!/bin/bash
+#!/bin/zsh
 
 # Download and install Dropbox Uploader
 sudo curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /usr/bin/dropbox_uploader
@@ -291,11 +291,47 @@ dropbox_uploader
 ```
 
 
+Setup Backup script
+-------------------
+
+First, follow the [Setup Dropbox Uploader](#setup-dropbox-uploader) section.
+
+```shell script
+#!/bin/zsh
+
+foldersToBackup="/var/www /etc/nginx/sites-available"
+newCron="0 3 * * * $(whoami) $HOME/dev/dotfiles/server/backup.sh $foldersToBackup"
+(crontab -l ; echo "$newCron") | crontab -
+```
+
+
+Setup MySQL Backup script
+-------------------------
+
+First, follow the [Setup Dropbox Uploader](#setup-dropbox-uploader) section.
+
+```shell script
+#!/bin/zsh
+
+mkdir -p ~/.config/backup
+cp ~/dev/dotfiles/server/config/mysql ~/.config/backup/mysql
+```
+
+Edit `~/.config/backup/mysql` file with user and password.
+
+```shell script
+#!/bin/zsh
+
+databaseName="<databaseName>"
+newCron="0 3 * * * $(whoami) $HOME/dev/dotfiles/server/mysql_backup.sh $databaseName"
+(crontab -l ; echo "$newCron") | crontab -
+```
+
 Setup Dropbox Headless
 ----------------------
 
 ```shell script
-#!/bin/bash
+#!/bin/zsh
 
 # Install required dependencies
 sudo apt update && sudo apt install -y \

@@ -1,14 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-TMP_DIR="/tmp/"
-DATE=$(date +"%Y-%m-%d_%Hh%M")
-BKP_FILE="$TMP_DIR/data.tar"
-BKP_DIRS="/home/user /var/www /etc"
-DROPBOX_UPLOADER_CONFIG_PATH="/home/ademode/.dropbox_uploader"
+set -xe
 
-tar cf "$BKP_FILE" $BKP_DIRS
-gzip "$BKP_FILE"
+# Params
+#   @: folder path list to backup
 
-dropbox_uploader -f $DROPBOX_UPLOADER_CONFIG_PATH upload "$BKP_FILE.gz" /
+TMP_DIR="/tmp"
+BACKUP_FILE="$TMP_DIR/data.tar"
+DROPBOX_UPLOADER_CONFIG_PATH="$HOME/.dropbox_uploader"
 
-rm -fr "$BKP_FILE.gz"
+tar cf "$BACKUP_FILE" "$@"
+gzip "$BACKUP_FILE"
+
+dropbox_uploader -f "$DROPBOX_UPLOADER_CONFIG_PATH" upload "$BACKUP_FILE.gz" /
+
+rm -f "$BACKUP_FILE.gz"
