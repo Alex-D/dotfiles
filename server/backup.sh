@@ -6,7 +6,7 @@ set -e
 #   @: folder path list to backup
 
 TMP_DIR="/tmp"
-BACKUP_FILE="$TMP_DIR/backup.tar"
+BACKUP_FILE="$TMP_DIR/$(hostname)-backup.tar"
 DROPBOX_UPLOADER_CONFIG_PATH="$HOME/.dropbox_uploader"
 
 tar \
