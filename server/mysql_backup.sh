@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 # Params
 #   DB_USER: Username
