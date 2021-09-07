@@ -16,12 +16,11 @@ What's in this setup?
 
 - Host: Windows 10 2004+
   - Ubuntu via WSL 2 (Windows Subsystem for Linux)
-  - Docker Desktop
 - Terminal: Windows Terminal
 - Shell: zsh
   - git
-  - docker (works with Docker Desktop)
-  - docker-compose (works with Docker Desktop)
+  - docker
+  - docker-compose
 - Node.js (using [Volta](https://volta.sh))
   - node
   - npm
@@ -174,27 +173,34 @@ chsh -s $(which zsh)
 Docker
 ------
 
-### Install Docker Desktop
-
-- [Install Docker Desktop](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-- Make sure that the "Use the WSL 2 based engine" option is checked in Docker Desktop settings
-
-### Setup Docker CLI
+### Setup Docker
 
 ```shell script
 #!/bin/zsh
 
 # Add Docker to sources.list
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-versionCodename=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d= -f2)
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu ${versionCodename} stable"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install tools
 sudo apt update && sudo apt install -y \
-    docker-ce
+    docker-ce docker-ce-cli containerd.io
 
 # Add user to docker group
 sudo usermod -aG docker $USER
+```
+
+
+Docker Compose
+--------------
+
+```shell script
+#!/bin/zsh
+
+sudo curl -sL -o /usr/local/bin/docker-compose $(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "browser_download_url.*$(uname -s)-$(uname -m)" | grep -v sha | cut -d: -f2,3 | tr -d \")
+sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 
@@ -220,7 +226,7 @@ Go
 #!/bin/zsh
 
 goVersion=1.16.4
-curl -L https://golang.org/dl/go1.16.4.linux-amd64.tar.gz > /tmp/go${goVersion}.linux-amd64.tar.gz
+curl -L "https://golang.org/dl/go${goVersion}.linux-amd64.tar.gz" > /tmp/go${goVersion}.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf /tmp/go${goVersion}.linux-amd64.tar.gz
 rm /tmp/go${goVersion}.linux-amd64.tar.gz
