@@ -300,7 +300,7 @@ First, follow the [Setup Dropbox Uploader](#setup-dropbox-uploader) section.
 #!/bin/zsh
 
 foldersToBackup="/var/www /etc/nginx/sites-available"
-newCron="0 3 * * * $(whoami) $HOME/dev/dotfiles/server/backup.sh $foldersToBackup"
+newCron="0 3 * * * $HOME/dev/dotfiles/server/backup.sh $foldersToBackup"
 (crontab -l ; echo "$newCron") | crontab -
 ```
 
@@ -323,7 +323,7 @@ Edit `~/.config/backup/mysql` file with user and password.
 #!/bin/zsh
 
 databaseName="<databaseName>"
-newCron="0 3 * * * $(whoami) $HOME/dev/dotfiles/server/mysql_backup.sh $databaseName"
+newCron="0 3 * * * $HOME/dev/dotfiles/server/mysql_backup.sh $databaseName"
 (crontab -l ; echo "$newCron") | crontab -
 ```
 
