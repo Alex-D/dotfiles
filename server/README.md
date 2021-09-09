@@ -71,6 +71,16 @@ echo "127.0.0.1 ${hostname}" | sudo tee -a /etc/hosts
 ```
 
 
+Change timezone
+---------------
+
+```shell script
+#!/bin/bash
+
+timedatectl set-timezone Europe/Paris
+```
+
+
 Setup Git
 ---------
 
