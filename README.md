@@ -183,6 +183,8 @@ sudo apt update
 sudo apt install gh
 ```
 
+Login gh command to GitHub via `gh auth login`
+
 
 Systemd
 -------
