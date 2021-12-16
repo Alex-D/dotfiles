@@ -9,4 +9,4 @@ robbyrussell/oh-my-zsh path:plugins/tig
 robbyrussell/oh-my-zsh path:plugins/ssh-agent
 robbyrussell/oh-my-zsh path:plugins/gpg-agent
 robbyrussell/oh-my-zsh path:plugins/colored-man-pages
-zdharma/fast-syntax-highlighting
+zdharma-continuum/fast-syntax-highlighting
