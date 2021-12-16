@@ -418,9 +418,12 @@ Install AWS CLI
 ```shell script
 #!/bin/zsh
 
+cd /tmp/aws-cli
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+cd -
+rm -rf /tmp/aws-cli
 ```
 
 [Original documentation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
@@ -435,9 +438,9 @@ Setup Git Filter Repo
 git clone git@github.com:newren/git-filter-repo.git /tmp/git-filter-repo
 cd /tmp/git-filter-repo
 make snag_docs
-cp -a git-filter-repo $(git --exec-path)
-cp -a Documentation/man1/git-filter-repo.1 $(git --man-path)/man1
-cp -a Documentation/html/git-filter-repo.html $(git --html-path)
+sudo cp -a git-filter-repo $(git --exec-path)
+sudo cp -a Documentation/man1/git-filter-repo.1 $(git --man-path)/man1
+sudo cp -a Documentation/html/git-filter-repo.html $(git --html-path)
 cd -
 rm -rf /tmp/git-filter-repo
 ```
