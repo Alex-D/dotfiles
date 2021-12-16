@@ -250,7 +250,7 @@ Docker Compose
 ```shell script
 #!/bin/zsh
 
-sudo curl -sL -o /usr/local/bin/docker-compose $(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "browser_download_url.*$(uname -s)-$(uname -m)" | grep -v sha | cut -d: -f2,3 | tr -d \")
+sudo curl -sL -o /usr/local/bin/docker-compose $(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "browser_download_url.*$(uname -s | awk '{print tolower($0)}')-$(uname -m)" | grep -v sha | cut -d: -f2,3 | tr -d \")
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
