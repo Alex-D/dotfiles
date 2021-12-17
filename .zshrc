@@ -14,6 +14,7 @@ fi
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 
 # All zsh plugins (Generated via Antibody)
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 [ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
 
 # Secret env
