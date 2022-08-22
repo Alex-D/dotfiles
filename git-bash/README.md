@@ -35,7 +35,7 @@ git config --global user.email "${email}"
 git config --global user.name "${username}"
 git config --global user.signingkey "${gpgkeyid}"
 git config --global commit.gpgsign true
-git config --global gpg.program "$HOME/dotfiles/git-bash/.gpg-pinentry-loopback"
+git config --global gpg.program "$HOME/dev/dotfiles/git-bash/.gpg-pinentry-loopback"
 git config --global core.pager /usr/bin/less
 git config --global core.excludesfile ~/.gitignore
 
@@ -56,19 +56,19 @@ pacman -S zsh
 zsh
 
 # Clone the dotfiles repository
-mkdir -p ~/dotfiles
-git clone git@github.com:Alex-D/dotfiles.git ~/dotfiles
+mkdir -p ~/dev/dotfiles
+git clone git@github.com:Alex-D/dotfiles.git ~/dev/dotfiles
 
 # Link custom dotfiles
-ln -sf ~/dotfiles/.aliases.zsh ~/.aliases.zsh
-ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.gitignore ~/.gitignore
-ln -sf ~/dotfiles/git-bash/.zsh_plugins.zsh ~/.zsh_plugins.zsh
+ln -sf ~/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
+ln -sf ~/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
+ln -sf ~/dev/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dev/dotfiles/.gitignore ~/.gitignore
+ln -sf ~/dev/dotfiles/git-bash/.zsh_plugins.zsh ~/.zsh_plugins.zsh
 
 # GPG Agent
 mkdir ~/.gnupg
-ln -sf ~/dotfiles/git-bash/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+ln -sf ~/dev/dotfiles/git-bash/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 gpg-connect-agent reloadagent /bye
 
 # Git autocompletion
