@@ -37,8 +37,10 @@ export EDITOR='vim'
 export SCREENDIR=$HOME/.screen
 
 # Go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+if [[ -d /usr/local/go/bin ]]; then
+    export PATH=$PATH:/usr/local/go/bin
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 # Volta (node, npm)
 export VOLTA_HOME=$HOME/.volta
