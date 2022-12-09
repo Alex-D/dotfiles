@@ -15,7 +15,7 @@
     {
       "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
       "name": "WSL Ubuntu",
-      "commandline": "wsl.exe genie -s",
+      "commandline": "wsl.exe",
       "source": "Windows.Terminal.Wsl",
       "closeOnExit": "always",
       "colorScheme": "Snazzy",

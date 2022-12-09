@@ -186,39 +186,6 @@ sudo apt install gh
 Login gh command to GitHub via `gh auth login`
 
 
-Systemd
--------
-
-Allow starting services like Docker.
-This uses [arkane-systems/genie](https://github.com/arkane-systems/genie).
-
-```shell script
-#!/bin/zsh
-
-# Setup Microsoft repository (Genie depends on .NET)
-curl -sL -o /tmp/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-sudo dpkg -i /tmp/packages-microsoft-prod.deb
-rm -f /tmp/packages-microsoft-prod.deb
-
-# Setup Arkane Systems repository
-sudo curl -sL -o /usr/share/keyrings/wsl-transdebian.gpg https://arkane-systems.github.io/wsl-transdebian/apt/wsl-transdebian.gpg
-echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/wsl-transdebian.gpg] https://arkane-systems.github.io/wsl-transdebian/apt/ \
-  $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/wsl-transdebian.list > /dev/null
-
-# Install Systemd Genie
-sudo apt-get update
-sudo apt-get install -y systemd-genie
-
-# Mask some unwanted services
-sudo systemctl mask systemd-remount-fs.service
-sudo systemctl mask multipathd.socket
-
-# Install custom config
-sudo ln -sf ~/dev/dotfiles/genie.ini /etc/genie.ini
-```
-
-
 Docker
 ------
 
