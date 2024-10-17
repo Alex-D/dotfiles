@@ -1,0 +1,10 @@
+services:
+  dev-container:
+    build:
+      context: .
+    volumes:
+      - ../..:/workspace:cached
+      - ~/.gitconfig:/home/dev/.gitconfig:ro
+      - ~/.ssh:/home/dev/.ssh:ro
+      - ~/.gnupg:/home/dev/.gnupg
+    command: sleep infinity
