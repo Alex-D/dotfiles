@@ -22,7 +22,7 @@ alias dc="docker-compose exec php composer"
 
 # WSL specific things
 if grep --quiet microsoft /proc/version 2>/dev/null; then
-  alias idea="(pkill -f 'java.*idea' || true) && screen -d -m /opt/idea/bin/idea.sh"
+  alias idea="(pkill -f 'java.*idea' || true) && screen -d -m /opt/idea/bin/idea"
   alias wslb="PowerShell.exe 'Start-Process PowerShell -Verb RunAs \"PowerShell -File \$env:USERPROFILE\\wsl2-bridge.ps1\"'"
   alias dcs="sudo /etc/init.d/docker start"
 fi
