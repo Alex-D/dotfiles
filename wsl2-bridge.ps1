@@ -13,7 +13,7 @@ else
 
 #[Ports]
 # All the ports you want to forward separated by coma
-$ports = @(22, 80, 443, 3000, 8000, 8042, 8080, 8081, 8888);
+$ports = @(22, 80, 443, 3000, 8000, 8042, 8080, 8081, 8888, 35729);
 
 
 #[Static IP]
@@ -31,7 +31,7 @@ iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Outboun
 foreach ($port in $ports)
 {
     iex "netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$addr";
-    iex "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport";
+#    iex "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport";
 }
 
 #[VcXsrv]

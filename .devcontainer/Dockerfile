@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     software-properties-common \
     sudo \
+    ssh \
     curl \
     zip unzip \
     procps \
