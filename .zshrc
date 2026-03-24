@@ -3,25 +3,22 @@
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
 
-# WSL specific things
-if grep --quiet microsoft /proc/version 2>/dev/null; then
-  # Set Windows display for WSL
-  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}')':0.0'
-  export LIBGL_ALWAYS_INDIRECT=1
-fi
-
 # Custom aliases
-[ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
+function setup_aliases() {
+  [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
+}
 
 # All zsh plugins (Generated via Antibody)
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-[ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
+function setup_zsh_plugin() {
+  zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_gitlab
+  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+  [ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
+}
 
 # Secret env
-[ -f ~/.env ] && source ~/.env
-
-# Original PATH from genie - Temporary fix, see https://github.com/arkane-systems/genie/issues/201
-[ -f /run/genie.path ] && export PATH=$PATH:$(cat /run/genie.path)
+function setup_env() {
+  [ -f ~/.env ] && source ~/.env
+}
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -29,6 +26,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+setup_aliases
+setup_zsh_plugin
+setup_env
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
@@ -41,6 +42,9 @@ if [[ -d /usr/local/go/bin ]]; then
     export PATH=$PATH:/usr/local/go/bin
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
+
+# Rust
+source "$HOME/.cargo/env"
 
 # Volta (node, npm)
 export VOLTA_HOME=$HOME/.volta
@@ -92,3 +96,62 @@ bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
 bindkey '\e[4~'   end-of-line        # Linux console
 bindkey '\e[F'    end-of-line        # xterm
 bindkey '\eOF'    end-of-line        # gnome-terminal
+
+# pnpm
+export PNPM_HOME="/home/ademode/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+# CUDA
+# export PATH="/usr/local/cuda/bin:$PATH" # Adaptez le chemin si votre installation CUDA est différente
+# export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+# autoload -U +X bashcompinit && bashcompinit
+# complete -o nospace -C /usr/bin/nomad nomad
+#
+# # add Pulumi to the PATH
+# export PATH=$PATH:/home/ademode/.pulumi/bin
+#
+
+# Hugging Face
+export HF_HOME=$HOME/ai/models/hf_cache
+
+
+# Conda / Python
+
+# Add any commands which depend on conda here
+function setup_python() {
+  lazy_conda_aliases=('python' 'conda')
+
+  load_conda() {
+    for lazy_conda_alias in $lazy_conda_aliases
+    do
+      unalias $lazy_conda_alias
+    done
+
+    __conda_prefix="$HOME/.miniconda3" # Set your conda Location
+
+    # >>> conda initialize >>>
+    __conda_setup="$("$__conda_prefix/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "$__conda_prefix/etc/profile.d/conda.sh" ]; then
+            . "$__conda_prefix/etc/profile.d/conda.sh"
+        else
+            export PATH="$__conda_prefix/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+
+    unset __conda_prefix
+    unfunction load_conda
+  }
+
+  for lazy_conda_alias in $lazy_conda_aliases
+  do
+    alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
+  done
+}
+setup_python
