@@ -138,6 +138,14 @@ ssh-add ~/.ssh/id_rsa
 
 # Display the public key ready to be copy pasted to GitHub
 cat ~/.ssh/id_rsa.pub
+
+# Setup Delta (see https://github.com/dandavison/delta)
+DELTA_VERSION=$(curl -s https://api.github.com/repos/dandavison/delta/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -sLo /tmp/git-delta.deb "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb"
+sudo dpkg -i /tmp/git-delta.deb
+rm /tmp/git-delta.deb
+
+git config --global core.pager /usr/bin/delta
 ```
 
 - [Add the generated key to GitHub](https://github.com/settings/ssh/new)
