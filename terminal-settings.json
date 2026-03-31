@@ -17,6 +17,7 @@
   ],
   "profiles": {
     "defaults": {
+      "elevate": true,
       "adjustIndistinguishableColors": "always",
       "colorScheme": {
         "light": "Snazzy Light",
@@ -50,7 +51,6 @@
       },
       {
         "closeOnExit": "always",
-        "elevate": true,
         "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
         "name": "PowerShell Core",
         "source": "Windows.Terminal.PowershellCore"
