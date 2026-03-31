@@ -158,8 +158,8 @@ curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
 antibody bundle < ~/dev/dotfiles/zsh_plugins > ~/.zsh_plugins.zsh
 
 # Link custom dotfiles
+ln -sf ~/dev/dotfiles/.ssh-config ~/.ssh/config
 ln -sf ~/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
-ln -sf ~/dev/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -sf ~/dev/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/.gitignore ~/.gitignore
 

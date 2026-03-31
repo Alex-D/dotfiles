@@ -1,72 +1,96 @@
-// Windows Terminal Settings
-// To view the default settings, hold "alt" while clicking on the "Settings" button.
-// For documentation on these settings, see: https://aka.ms/terminal-documentation
-
 {
+  "$help": "https://aka.ms/terminal-documentation",
   "$schema": "https://aka.ms/terminal-profiles-schema",
-
   "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
   "disabledProfileSources": [
-    "Windows.Terminal.Azure"
+    "Windows.Terminal.Azure",
+    "Windows.Terminal.VisualStudio"
   ],
-
-  "profiles":
-  [
+  "initialCols": 220,
+  "initialRows": 56,
+  "keybindings": [],
+  "launchMode": "default",
+  "newTabMenu": [
     {
-      "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-      "name": "WSL Ubuntu",
-      "commandline": "wsl.exe",
-      "source": "Windows.Terminal.Wsl",
-      "closeOnExit": "always",
-      "colorScheme": "Snazzy",
-      "cursorColor": "#97979b",
-      "cursorShape": "filledBox",
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
-      "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
-      "name": "GitBash",
-      "commandline": "\"C:/git-sdk-64/usr/bin/bash.exe\" --login -c \"zsh\"",
-      "icon" : "C:/git-sdk-64/mingw64/share/git/git-for-windows.ico",
-      "closeOnExit": "always",
-      "colorScheme": "Snazzy",
-      "cursorColor": "#97979b",
-      "cursorShape": "filledBox",
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
-      "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-      "name": "PowerShell Core",
-      "source": "Windows.Terminal.PowershellCore",
-      "closeOnExit": "always",
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
-      "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-      "name": "cmd",
-      "commandline": "cmd.exe",
-      "closeOnExit": "always",
-      "fontFace": "JetBrains Mono",
-      "fontSize": 11,
-      "padding": "17, 17, 17, 17"
-    },
-    {
-      /* Windows PowerShell - hidden */
-      "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-      "hidden": true
+      "type": "remainingProfiles"
     }
   ],
-
-  // Add custom color schemes to this array
+  "profiles": {
+    "defaults": {
+      "adjustIndistinguishableColors": "always",
+      "colorScheme": {
+        "light": "Snazzy Light",
+        "dark": "Snazzy Dark"
+      },
+      "font": {
+        "face": "JetBrains Mono"
+      },
+      "padding": "20"
+    },
+    "list": [
+      {
+        "closeOnExit": "always",
+        "commandline": "wsl.exe",
+        "cursorColor": "#97979B",
+        "cursorShape": "filledBox",
+        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+        "hidden": false,
+        "name": "WSL Ubuntu",
+        "source": "Windows.Terminal.Wsl",
+        "tabTitle": "~"
+      },
+      {
+        "closeOnExit": "always",
+        "commandline": "\"C:/git-sdk-64/usr/bin/bash.exe\" --login -c \"zsh\"",
+        "cursorColor": "#97979B",
+        "cursorShape": "filledBox",
+        "guid": "{0caa0dad-35be-5fdd-a8ff-afceeeaa6101}",
+        "icon": "C:/git-sdk-64/mingw64/share/git/git-for-windows.ico",
+        "name": "GitBash"
+      },
+      {
+        "closeOnExit": "always",
+        "elevate": true,
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "name": "PowerShell Core",
+        "source": "Windows.Terminal.PowershellCore"
+      },
+      {
+        "closeOnExit": "always",
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "name": "cmd"
+      },
+      {
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "hidden": true,
+        "name": "Windows PowerShell"
+      }
+    ]
+  },
   "schemes": [
     {
-      "name": "Snazzy",
+      "name": "Snazzy Light",
+      "foreground": "#0f111a",
+      "background": "#eff0eb",
+      "black": "#0f111a",
+      "red": "#ff5c57",
+      "green": "#5af78e",
+      "yellow": "#f3f99d",
+      "blue": "#57c7ff",
+      "purple": "#ff6ac1",
+      "cyan": "#9aedfe",
+      "white": "#f1f1f0",
+      "brightBlack": "#686868",
+      "brightRed": "#ff5c57",
+      "brightGreen": "#5af78e",
+      "brightYellow": "#f3f99d",
+      "brightBlue": "#57c7ff",
+      "brightPurple": "#ff6ac1",
+      "brightCyan": "#9aedfe",
+      "brightWhite": "#eff0eb"
+    },
+    {
+      "name": "Snazzy Dark",
       "foreground": "#eff0eb",
       "background": "#0f111a",
       "black": "#0f111a",
@@ -87,8 +111,7 @@
       "brightWhite": "#eff0eb"
     }
   ],
-
-  // Add any keybinding overrides to this array.
-  // To unbind a default keybinding, set the command to "unbound"
-  "keybindings": []
+  "showTabsFullscreen": true,
+  "theme": "system",
+  "windowingBehavior": "useAnyExisting"
 }

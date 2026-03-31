@@ -1,12 +1,8 @@
-# Prompt
-romkatv/powerlevel10k
-
 # Plugins
 rupa/z
 robbyrussell/oh-my-zsh path:lib/git.zsh
 robbyrussell/oh-my-zsh path:plugins/git
 robbyrussell/oh-my-zsh path:plugins/tig
-robbyrussell/oh-my-zsh path:plugins/ssh-agent
 robbyrussell/oh-my-zsh path:plugins/gpg-agent
 robbyrussell/oh-my-zsh path:plugins/colored-man-pages
 zdharma-continuum/fast-syntax-highlighting

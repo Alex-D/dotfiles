@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Do not want background jobs to be at a lower priority
 unsetopt BG_NICE
@@ -10,7 +10,6 @@ function setup_aliases() {
 
 # All zsh plugins (Generated via Antibody)
 function setup_zsh_plugin() {
-  zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa_gitlab
   ZSH_AUTOSUGGEST_STRATEGY=(history completion)
   [ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
 }
@@ -19,13 +18,6 @@ function setup_zsh_plugin() {
 function setup_env() {
   [ -f ~/.env ] && source ~/.env
 }
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 setup_aliases
 setup_zsh_plugin
@@ -45,10 +37,6 @@ fi
 
 # Rust
 source "$HOME/.cargo/env"
-
-# Volta (node, npm)
-export VOLTA_HOME=$HOME/.volta
-export PATH=$VOLTA_HOME/bin:$PATH
 
 ## History command configuration
 HISTSIZE=5000                 # How many lines of history to keep in memory
@@ -82,9 +70,6 @@ tabtitle_preexec() {
 }
 [[ -z $preexec_functions ]] && preexec_functions=()
 preexec_functions=($preexec_functions tabtitle_preexec)
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
 
 # Keybindings
 # Source: https://www.zsh.org/mla/users/2008/msg00794.html
@@ -155,3 +140,14 @@ function setup_python() {
   done
 }
 setup_python
+
+function setup_vite_plus() {
+	# Vite+ bin (https://viteplus.dev)
+	. "$HOME/.vite-plus/env"
+}
+setup_vite_plus
+
+function setup_prompt() {
+	eval "$(starship init zsh)"
+}
+setup_prompt
