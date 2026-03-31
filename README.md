@@ -171,6 +171,9 @@ ln -sf ~/dev/dotfiles/.aliases.zsh ~/.aliases.zsh
 ln -sf ~/dev/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/.gitignore ~/.gitignore
 
+# Link custom WSL config
+sudo ln -sf ~/dev/dotfiles/wsl.conf /etc/wsl.conf
+
 # Create .screen folder used by .zshrc
 mkdir ~/.screen && chmod 700 ~/.screen
 
@@ -365,7 +368,6 @@ Limit WSL 2 RAM consumption
 
 windowsUserProfile=/mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
 
-# Avoid too much RAM consumption
 cp ~/dev/dotfiles/.wslconfig ${windowsUserProfile}/.wslconfig
 ```
 

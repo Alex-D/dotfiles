@@ -5,18 +5,18 @@ unsetopt BG_NICE
 
 # Custom aliases
 function setup_aliases() {
-  [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
+	[ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 }
 
 # All zsh plugins (Generated via Antibody)
 function setup_zsh_plugin() {
-  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  [ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
+	ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+	[ -f ~/.zsh_plugins.zsh ] && source ~/.zsh_plugins.zsh
 }
 
 # Secret env
 function setup_env() {
-  [ -f ~/.env ] && source ~/.env
+	[ -f ~/.env ] && source ~/.env
 }
 
 setup_aliases
@@ -31,8 +31,8 @@ export SCREENDIR=$HOME/.screen
 
 # Go
 if [[ -d /usr/local/go/bin ]]; then
-    export PATH=$PATH:/usr/local/go/bin
-    export PATH=$PATH:$(go env GOPATH)/bin
+		export PATH=$PATH:/usr/local/go/bin
+		export PATH=$PATH:$(go env GOPATH)/bin
 fi
 
 # Rust
@@ -57,16 +57,16 @@ export LS_COLORS
 
 # Show cwd when shell prompts for input.
 tabtitle_precmd() {
-   pwd=$(dirs) # Store full path as variable
-   cwd=${pwd##*/} # Extract current working dir only
-   printf "\033]0;%s\a" "$cwd" # Omit construct from $1 to show args
+	 pwd=$(dirs) # Store full path as variable
+	 cwd=${pwd##*/} # Extract current working dir only
+	 printf "\033]0;%s\a" "$cwd" # Omit construct from $1 to show args
 }
 [[ -z $precmd_functions ]] && precmd_functions=()
 precmd_functions=($precmd_functions tabtitle_precmd)
 
 # Prepend command (w/o arguments) to cwd while waiting for command to complete.
 tabtitle_preexec() {
-   printf "\033]0;%s\a" "${1%% *} | $cwd" # Omit construct from $1 to show args
+	 printf "\033]0;%s\a" "${1%% *} | $cwd" # Omit construct from $1 to show args
 }
 [[ -z $preexec_functions ]] && preexec_functions=()
 preexec_functions=($preexec_functions tabtitle_preexec)
@@ -106,44 +106,60 @@ export HF_HOME=$HOME/ai/models/hf_cache
 
 # Add any commands which depend on conda here
 function setup_python() {
-  lazy_conda_aliases=('python' 'conda')
+	lazy_conda_aliases=('python' 'conda')
 
-  load_conda() {
-    for lazy_conda_alias in $lazy_conda_aliases
-    do
-      unalias $lazy_conda_alias
-    done
+	load_conda() {
+		for lazy_conda_alias in "${lazy_conda_aliases[@]}"
+		do
+			unalias "$lazy_conda_alias"
+		done
 
-    __conda_prefix="$HOME/.miniconda3" # Set your conda Location
+		__conda_prefix="$HOME/.miniconda3" # Set your conda Location
 
-    # >>> conda initialize >>>
-    __conda_setup="$("$__conda_prefix/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "$__conda_prefix/etc/profile.d/conda.sh" ]; then
-            . "$__conda_prefix/etc/profile.d/conda.sh"
-        else
-            export PATH="$__conda_prefix/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
-    # <<< conda initialize <<<
+		# >>> conda initialize >>>
+		__conda_setup="$("$__conda_prefix/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
+		if [ $? -eq 0 ]; then
+				eval "$__conda_setup"
+		else
+				if [ -f "$__conda_prefix/etc/profile.d/conda.sh" ]; then
+						. "$__conda_prefix/etc/profile.d/conda.sh"
+				else
+						export PATH="$__conda_prefix/bin:$PATH"
+				fi
+		fi
+		unset __conda_setup
+		# <<< conda initialize <<<
 
-    unset __conda_prefix
-    unfunction load_conda
-  }
+		unset __conda_prefix
+		unfunction load_conda
+	}
 
-  for lazy_conda_alias in $lazy_conda_aliases
-  do
-    alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
-  done
+	for lazy_conda_alias in "${lazy_conda_aliases[@]}"
+	do
+		# shellcheck disable=SC2139
+		alias "$lazy_conda_alias"="load_conda && $lazy_conda_alias"
+	done
 }
 setup_python
 
 function setup_vite_plus() {
+	lazy_vite_plus_aliases=('node' 'npm' 'npx' 'pnpm' 'pnpx' 'vp' 'vpx')
+
 	# Vite+ bin (https://viteplus.dev)
-	. "$HOME/.vite-plus/env"
+	function load_vite_plus() {
+		for lazy_vite_plus_alias in "${lazy_vite_plus_aliases[@]}"
+		do
+			unalias "$lazy_vite_plus_alias"
+		done
+
+		. "$HOME/.vite-plus/env"
+	}
+
+	for lazy_vite_plus_alias in "${lazy_vite_plus_aliases[@]}"
+	do
+		# shellcheck disable=SC2139
+		alias "$lazy_vite_plus_alias"="load_vite_plus && $lazy_vite_plus_alias"
+	done
 }
 setup_vite_plus
 
